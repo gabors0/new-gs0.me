@@ -1,0 +1,80 @@
+<script>
+    import { onMount } from "svelte";
+    import { formatDistance } from "date-fns";
+    export let title;
+    export let description;
+    export let link;
+    export let repo;
+
+    let commitDate = null;
+    let error = null;
+    let formattedDate = null;
+
+    $: formattedDate = commitDate
+        ? formatDistance(new Date(commitDate), new Date())
+        : null;
+    onMount(async () => {
+        if (repo !== "") {
+            try {
+                const branchRes = await fetch(
+                    `https://api.github.com/repos/gabors0/${repo}/branches/main`,
+                );
+                if (!branchRes.ok)
+                    throw new Error(`Branch fetch failed: ${branchRes.status}`);
+                const branchData = await branchRes.json();
+                const commitUrl = branchData.commit.url;
+                const commitRes = await fetch(commitUrl);
+                if (!commitRes.ok)
+                    throw new Error(`Commit fetch failed: ${commitRes.status}`);
+                const commitData = await commitRes.json();
+                commitDate = commitData.commit.author.date;
+            } catch (e) {
+                error = e.message;
+            }
+        }
+    });
+</script>
+
+<div
+    class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0 rounded-md"
+>
+    <h1 class="font-bold p-3 text-2xl">{title}</h1>
+    <hr class="w-full text-white/30" />
+    <p class="p-3">{description}</p>
+    <div class="flex justify-between p-3">
+        <span class="italic opacity-70"
+            >{#if error}{error}{:else if formattedDate}Last modified: {formattedDate}
+                ago{:else}Loading...{/if}</span
+        >
+        <div class="flex flex-row">
+            {#if link !== ""}
+                <a href={link} target="_blank" aria-label="visit website">
+                    <svg
+                        class="svgIcon transition-opacity opacity-70 hover:opacity-100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 640 640"
+                        ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
+                            d="M354.4 83.8C359.4 71.8 371.1 64 384 64L544 64C561.7 64 576 78.3 576 96L576 256C576 268.9 568.2 280.6 556.2 285.6C544.2 290.6 530.5 287.8 521.3 278.7L464 221.3L310.6 374.6C298.1 387.1 277.8 387.1 265.3 374.6C252.8 362.1 252.8 341.8 265.3 329.3L418.7 176L361.4 118.6C352.2 109.4 349.5 95.7 354.5 83.7zM64 240C64 195.8 99.8 160 144 160L224 160C241.7 160 256 174.3 256 192C256 209.7 241.7 224 224 224L144 224C135.2 224 128 231.2 128 240L128 496C128 504.8 135.2 512 144 512L400 512C408.8 512 416 504.8 416 496L416 416C416 398.3 430.3 384 448 384C465.7 384 480 398.3 480 416L480 496C480 540.2 444.2 576 400 576L144 576C99.8 576 64 540.2 64 496L64 240z"
+                        /></svg
+                    >
+                </a>
+            {/if}
+            {#if repo !== ""}
+                <a
+                    href="https://github.com/gabors0/${repo}"
+                    target="_blank"
+                    aria-label="visit GitHub"
+                >
+                    <svg
+                        class="svgIcon transition-opacity opacity-70 hover:opacity-100"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 640 640"
+                        ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
+                            d="M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72zM169.2 416.9C167.9 417.9 168.2 420.2 169.9 422.1C171.5 423.7 173.8 424.4 175.1 423.1C176.4 422.1 176.1 419.8 174.4 417.9C172.8 416.3 170.5 415.6 169.2 416.9zM158.4 408.8C157.7 410.1 158.7 411.7 160.7 412.7C162.3 413.7 164.3 413.4 165 412C165.7 410.7 164.7 409.1 162.7 408.1C160.7 407.5 159.1 407.8 158.4 408.8zM190.8 444.4C189.2 445.7 189.8 448.7 192.1 450.6C194.4 452.9 197.3 453.2 198.6 451.6C199.9 450.3 199.3 447.3 197.3 445.4C195.1 443.1 192.1 442.8 190.8 444.4zM179.4 429.7C177.8 430.7 177.8 433.3 179.4 435.6C181 437.9 183.7 438.9 185 437.9C186.6 436.6 186.6 434 185 431.7C183.6 429.4 181 428.4 179.4 429.7z"
+                        /></svg
+                    >
+                </a>
+            {/if}
+        </div>
+    </div>
+</div>

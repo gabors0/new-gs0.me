@@ -83,12 +83,18 @@
     :global(body) {
         color: white;
         margin: 0;
+        transition-duration: 0.5s;
+        transition-property: background;
         background: linear-gradient(
             oklch(0.3 0.2298 var(--hue, 0deg)),
             oklch(0.2 0.2298 var(--hue, 0deg))
         );
     }
-    :global(::selection, ::-moz-selection) {
+    :global(::selection) {
+        background-color: #ddd;
+        color: #333;
+    }
+    :global(::-moz-selection) {
         background-color: #ddd;
         color: #333;
     }

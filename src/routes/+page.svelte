@@ -53,10 +53,11 @@
         <!-- Second row: full name and placeholder -->
         <div class="flex flex-row justify-between items-center">
             <p class="font-inter opacity-50">Gabor Simon</p>
-            <p class="font-inter">asdf</p>
+            <a href="https://ko-fi.com/gabors0" class="underline">ko-fi</a>
         </div>
     </div>
     <hr class="my-5 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" />
+    <p class="text-left w-[80%] mx-5 sm:mx-0 sm:w-xl">f</p>
 </div>
 
 <style>
