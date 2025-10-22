@@ -2,12 +2,12 @@
     import "../app.css";
     import favicon from "$lib/assets/favicon.svg";
     import { browser } from "$app/environment";
-    import { page } from '$app/stores';
-    
+    import { page } from "$app/state";
+
     // Generate a hue during SSR so the initial HTML/CSS contains the color and
     // the page does not flash the fallback color on first paint.
     let ssrHue: number | null = null;
-    
+
     if (!browser) {
         ssrHue = Math.floor(Math.random() * 361);
     }
@@ -24,45 +24,77 @@
     {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');}catch(e){} })();<\/script>`}
 </svelte:head>
 
-<slot />
+<main>
+    <slot />
+</main>
 
 <header
-    class="flex justify-between items-center w-screen p-5 absolute top-0 left-0 *:transition-opacity *:duration-100">
-    <a href="/" class="p-5 cursor-pointer hover:opacity-100 {$page.url.pathname === '/' ? 'opacity-100' : 'opacity-50'}">/</a>
-    <a href="/projects" class="p-5 cursor-pointer hover:opacity-100 {$page.url.pathname === '/projects' ? 'opacity-100' : 'opacity-50'}">/projects</a>
-    <a href="/about" class="p-5 cursor-pointer hover:opacity-100 {$page.url.pathname === '/about' ? 'opacity-100' : 'opacity-50'}">/about</a>
+    class="flex justify-between items-center w-screen p-5 absolute top-0 left-0 *:transition-opacity *:duration-100"
+>
+    <a
+        href="/"
+        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname === '/'
+            ? 'opacity-100'
+            : 'opacity-50'}">/</a
+    >
+    <a
+        href="/projects"
+        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname ===
+        '/projects'
+            ? 'opacity-100'
+            : 'opacity-50'}">/projects</a
+    >
+    <a
+        href="/about"
+        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname ===
+        '/about'
+            ? 'opacity-100'
+            : 'opacity-50'}">/about</a
+    >
 </header>
 
+<button
+    class="absolute cursor-pointer bottom-5 left-5 border-none bg-transparent"
+    aria-label="reroll color"
+    title="reroll color"
+    on:click={() => {
+        document.documentElement.style.setProperty(
+            "--hue",
+            Math.floor(Math.random() * 361) + "deg",
+        );
+    }}
+>
+    <svg
+        class="svgIcon opacity-50 hover:opacity-100 transition-opacity duration-300"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 640 640"
+        ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
+            d="M534.6 182.6C547.1 170.1 547.1 149.8 534.6 137.3L470.6 73.3C461.4 64.1 447.7 61.4 435.7 66.4C423.7 71.4 416 83.1 416 96L416 128L256 128C150 128 64 214 64 320C64 337.7 78.3 352 96 352C113.7 352 128 337.7 128 320C128 249.3 185.3 192 256 192L416 192L416 224C416 236.9 423.8 248.6 435.8 253.6C447.8 258.6 461.5 255.8 470.7 246.7L534.7 182.7zM105.4 457.4C92.9 469.9 92.9 490.2 105.4 502.7L169.4 566.7C178.6 575.9 192.3 578.6 204.3 573.6C216.3 568.6 224 556.9 224 544L224 512L384 512C490 512 576 426 576 320C576 302.3 561.7 288 544 288C526.3 288 512 302.3 512 320C512 390.7 454.7 448 384 448L224 448L224 416C224 403.1 216.2 391.4 204.2 386.4C192.2 381.4 178.5 384.2 169.3 393.3L105.3 457.3z"
+        /></svg
+    >
+</button>
+
 <style lang="postcss">
-    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz@0,14..32;1,14..32&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap");
     :global(html) {
         min-height: 100%;
         overflow: hidden;
     }
-
     :global(body) {
-        font-family:
-            "Inter",
-            system-ui,
-            -apple-system,
-            BlinkMacSystemFont,
-            "Segoe UI",
-            Roboto,
-            Oxygen,
-            Ubuntu,
-            Cantarell,
-            "Open Sans",
-            sans-serif;
         color: white;
         margin: 0;
-        min-height: 100vh;
         background: linear-gradient(
-            oklch(0.2 0.2298 var(--hue, 0deg)),
-            oklch(0.1 0.2298 var(--hue, 0deg))
+            oklch(0.3 0.2298 var(--hue, 0deg)),
+            oklch(0.2 0.2298 var(--hue, 0deg))
         );
     }
     :global(::selection, ::-moz-selection) {
         background-color: #ddd;
         color: #333;
+    }
+    :global(.svgIcon) {
+        fill: white;
+        width: 32px;
+        height: 32px;
     }
 </style>
