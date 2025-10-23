@@ -65,7 +65,7 @@
         </div>
     </div>
     <hr class="my-5 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" />
-    <p class="text-left w-[80%] mx-5 sm:mx-0 sm:w-xl">f</p>
+    <p class="text-left w-[80%] mx-5 sm:mx-0 sm:w-xl"></p>
 </div>
 
 <style>

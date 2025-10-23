@@ -3,6 +3,8 @@
     import favicon from "$lib/assets/sandwich.png";
     import { browser } from "$app/environment";
     import { page } from "$app/state";
+    import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
 
     // Generate a hue during SSR so the initial HTML/CSS contains the color and
     // the page does not flash the fallback color on first paint.
@@ -11,6 +13,38 @@
     if (!browser) {
         ssrHue = Math.floor(Math.random() * 361);
     }
+
+    onMount(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            // Ignore if user is typing in an input, textarea, or contenteditable element
+            const target = event.target as HTMLElement;
+            if (
+                target.tagName === "INPUT" ||
+                target.tagName === "TEXTAREA" ||
+                target.isContentEditable
+            ) {
+                return;
+            }
+
+            switch (event.key.toLowerCase()) {
+                case "i":
+                    goto("/");
+                    break;
+                case "p":
+                    goto("/projects");
+                    break;
+                case "a":
+                    goto("/about");
+                    break;
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyPress);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyPress);
+        };
+    });
 </script>
 
 <svelte:head>
@@ -40,28 +74,44 @@
 </main>
 
 <header
-    class="flex items-center w-screen absolute top-0 left-0 *:transition-opacity *:duration-100"
+    class="flex items-center w-screen absolute top-0 left-0 *:transition-colors *:duration-100"
 >
     <a
         href="/"
-        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 left-5 {page
+        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 left-5 {page
             .url.pathname === '/'
-            ? 'opacity-100'
-            : 'opacity-50'}">/</a
+            ? 'text-white/100'
+            : 'text-white/50'}"
+        >/<span
+            class="group-hover:!text-white/100 {page.url.pathname === '/'
+                ? 'text-white/100'
+                : 'text-white/75'}">i</span
+        >ndex</a
     >
     <a
         href="/projects"
-        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 left-1/2 -translate-x-1/2 {page
+        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 left-1/2 -translate-x-1/2 {page
             .url.pathname === '/projects'
-            ? 'opacity-100'
-            : 'opacity-50'}">/projects</a
+            ? 'text-white/100'
+            : 'text-white/50'}"
+        >/<span
+            class="group-hover:!text-white/100 {page.url.pathname ===
+            '/projects'
+                ? 'text-white/100'
+                : 'text-white/75'}">p</span
+        >rojects</a
     >
     <a
         href="/about"
-        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 right-5 {page
+        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 right-5 {page
             .url.pathname === '/about'
-            ? 'opacity-100'
-            : 'opacity-50'}">/about</a
+            ? 'text-white/100'
+            : 'text-white/50'}"
+        >/<span
+            class="group-hover:!text-white/100 {page.url.pathname === '/about'
+                ? 'text-white/100'
+                : 'text-white/75'}">a</span
+        >bout</a
     >
 </header>
 

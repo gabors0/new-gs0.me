@@ -1,10 +1,41 @@
+<script>
+    let clicked = false;
+</script>
+
 <div class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] mx-5">
     <div
-        class="bg-black/30 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn"
+        class="bg-black/30 mb-5 md:mb-0 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
     >
         <h1 class="font-bold p-3 text-2xl text-center">about me</h1>
         <hr class="w-full text-white/30" />
-        <p class="p-8 opacity-75 text-lg font-inter"></p>
+        <div class="p-8 opacity-75 text-lg font-inter">
+            <p>
+                I'm a 17 year old mostly self-taught student/developer from
+                Hungary, currently I'm mainly learning frontend since I love UI
+                design.
+            </p>
+            <br />
+            <p>I'm also into photography, audio stuff and I love tinkering</p>
+        </div>
+        <div
+            class="p-8 w-full select-none opacity-50 flex-1 flex items-center justify-center"
+        >
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <!-- svelte-ignore a11y_click_events_have_key_events -->
+            <pre
+                onclick={() => {
+                    clicked = true;
+                }}
+                class="font-mono text-xl text-center cursor-pointer">
+
+
+{#if clicked}&lt;3{/if}
+
+   |\__/,|   (`\
+  _.|o o  |_   ) )
+-(((---(((--------
+            </pre>
+        </div>
     </div>
     <div
         class="bg-black/30 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn"
@@ -55,14 +86,13 @@
                         ></svg
                     ></a
                 >
-                <a href=""> </a>
             </div>
         </div>
         <!--//////////////////-->
-        <p class="p-3 text-center text-lg opacity-75 mt-8">fonts used</p>
+        <p class="p-3 text-center text-lg opacity-75">fonts used</p>
         <div class="flex md:flex-row flex-col justify-between">
             <div
-                class="flex items-center justify-center mb-3 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+                class="flex items-center justify-center mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
             >
                 <a
                     class="hover:underline"
@@ -71,7 +101,7 @@
                 >
             </div>
             <div
-                class="flex items-center justify-center mb-3 md:mr-3 md:ml-0 mx-3 p-8 md:w-full font-suse-mono text-4xl text-center border border-white/30"
+                class="flex items-center justify-center md:mr-3 md:ml-0 mx-3 p-8 md:w-full font-suse-mono text-4xl text-center border border-white/30"
             >
                 <a
                     class="hover:underline"
@@ -82,6 +112,18 @@
             </div>
         </div>
         <!--//////////////////-->
+        <p class="p-3 text-center text-lg opacity-75">source code</p>
+        <div class="flex md:flex-row flex-col justify-between">
+            <div
+                class="flex items-center justify-center gap-x-1 mx-3 mb-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+            >
+                <a
+                    href="https://github.com/gabors0/new-gs0.me"
+                    target="_blank"
+                    class="font-suse-mono text-4xl hover:underline">github</a
+                >
+            </div>
+        </div>
     </div>
 </div>
 
