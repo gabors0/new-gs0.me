@@ -4,7 +4,10 @@
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1 class="font-suse-mono text-3xl">gabors0</h1>
             <div class="flex flex-row">
-                <a href="https://github.com/gabors0"
+                <a
+                    href="https://github.com/gabors0"
+                    aria-label="github"
+                    target="_blank"
                     ><svg
                         class="svgIcon transition-transform"
                         xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +17,10 @@
                         /></svg
                     ></a
                 >
-                <a href="https://x.com/s5underscore5" aria-label="x/twitter"
+                <a
+                    href="https://x.com/s5underscore5"
+                    aria-label="x/twitter"
+                    target="_blank"
                     ><svg
                         class="svgIcon transition-transform"
                         xmlns="http://www.w3.org/2000/svg"
@@ -27,6 +33,7 @@
                 <a
                     href="mailto:gabors0@proton.me"
                     aria-label="send an email"
+                    target="_blank"
                     title="gabors0@proton.me"
                     ><svg
                         class="svgIcon transition-transform"
@@ -37,7 +44,10 @@
                         /></svg
                     ></a
                 >
-                <a href="https://last.fm/user/gabors0" aria-label="last.fm"
+                <a
+                    href="https://last.fm/user/gabors0"
+                    aria-label="last.fm"
+                    target="_blank"
                     ><svg
                         class="svgIcon transition-transform"
                         xmlns="http://www.w3.org/2000/svg"

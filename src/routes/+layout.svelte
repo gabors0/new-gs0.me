@@ -76,20 +76,38 @@
 
 <style lang="postcss">
     @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+
     :global(html) {
-        min-height: 100%;
-        overflow: hidden;
+        height: 100%;
+        background: linear-gradient(
+                to bottom,
+                oklch(0.3 0.2298 var(--hue, 0deg)) 0%,
+                oklch(0.2 0.2298 var(--hue, 0deg)) 100vh
+            )
+            fixed;
+        background-color: oklch(0.2 0.2298 var(--hue, 0deg));
     }
+
     :global(body) {
         color: white;
         margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        min-height: 100dvh;
+
+        background-attachment: fixed;
+        background-size: 100% 100vh;
+        background-repeat: no-repeat;
         transition-duration: 0.5s;
         transition-property: background;
-        background: linear-gradient(
-            oklch(0.3 0.2298 var(--hue, 0deg)),
-            oklch(0.2 0.2298 var(--hue, 0deg))
-        );
     }
+
+    main {
+        min-height: 100vh;
+        min-height: 100dvh;
+        position: relative;
+    }
+
     :global(::selection) {
         background-color: #ddd;
         color: #333;
