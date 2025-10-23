@@ -1,9 +1,8 @@
 <div class="fadeIn flex flex-col justify-center items-center h-screen">
     <div class="flex flex-col w-[80%] mx-5 sm:mx-0 sm:w-xl">
-        <!-- First row: username and links -->
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1 class="font-suse-mono text-3xl">gabors0</h1>
-            <div class="flex flex-row">
+            <div class="flex flex-row gap-x-1">
                 <a
                     href="https://github.com/gabors0"
                     aria-label="github"
@@ -60,7 +59,6 @@
             </div>
         </div>
 
-        <!-- Second row: full name and placeholder -->
         <div class="flex flex-row justify-between items-center">
             <p class="font-inter opacity-50">Gabor Simon</p>
             <a href="https://ko-fi.com/gabors0" class="underline">ko-fi</a>
@@ -77,7 +75,7 @@
     @keyframes fadeIn {
         0% {
             opacity: 0;
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.9) translateY(50px);
             filter: blur(10px);
         }
         100% {

@@ -36,15 +36,15 @@
 </script>
 
 <div
-    class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0 rounded-md"
+    class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
 >
-    <h1 class="font-bold p-3 text-2xl">{title}</h1>
+    <h1 class="font-bold p-3 text-2xl text-center">{title}</h1>
     <hr class="w-full text-white/30" />
     <p class="p-3">{description}</p>
     <div class="flex justify-between p-3">
         <span class="italic opacity-70"
-            >{#if error}{error}{:else if formattedDate}Last modified: {formattedDate}
-                ago{:else}Loading...{/if}</span
+            >{#if error}{error}{:else if formattedDate}last modified: {formattedDate}
+                ago{:else if repo == ""}{:else}Loading...{/if}</span
         >
         <div class="flex flex-row">
             {#if link !== ""}
@@ -61,7 +61,7 @@
             {/if}
             {#if repo !== ""}
                 <a
-                    href="https://github.com/gabors0/${repo}"
+                    href="https://github.com/gabors0/{repo}"
                     target="_blank"
                     aria-label="visit GitHub"
                 >

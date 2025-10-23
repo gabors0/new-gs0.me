@@ -3,7 +3,7 @@
 </script>
 
 <div
-    class="flex flex-col sm:flex-row sm:flex-wrap gap-5 my-[100px] mx-8 fadeIn"
+    class="flex flex-col sm:flex-row sm:flex-wrap gap-5 pt-[100px] mx-8 fadeIn"
 >
     <Project
         title="unduck-startpage"
@@ -17,6 +17,7 @@
     @keyframes fadeIn {
         0% {
             opacity: 0;
+            transform: translateY(50px);
             filter: blur(10px);
         }
         100% {
@@ -24,6 +25,6 @@
         }
     }
     .fadeIn {
-        animation: fadeIn 0.2s ease-in-out;
+        animation: fadeIn 0.35s ease-in-out;
     }
 </style>

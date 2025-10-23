@@ -1,6 +1,6 @@
 <script lang="ts">
     import "../app.css";
-    import favicon from "$lib/assets/favicon.svg";
+    import favicon from "$lib/assets/sandwich.png";
     import { browser } from "$app/environment";
     import { page } from "$app/state";
 
@@ -16,6 +16,17 @@
 <svelte:head>
     <link rel="icon" href={favicon} />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin="anonymous"
+    />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+        rel="stylesheet"
+    />
+
     {#if ssrHue !== null}
         <style>
             :root { --hue: {ssrHue}deg; }
@@ -29,25 +40,26 @@
 </main>
 
 <header
-    class="flex justify-between items-center w-screen p-5 absolute top-0 left-0 *:transition-opacity *:duration-100"
+    class="flex items-center w-screen absolute top-0 left-0 *:transition-opacity *:duration-100"
 >
     <a
         href="/"
-        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname === '/'
+        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 left-5 {page
+            .url.pathname === '/'
             ? 'opacity-100'
             : 'opacity-50'}">/</a
     >
     <a
         href="/projects"
-        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname ===
-        '/projects'
+        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 left-1/2 -translate-x-1/2 {page
+            .url.pathname === '/projects'
             ? 'opacity-100'
             : 'opacity-50'}">/projects</a
     >
     <a
         href="/about"
-        class="p-5 cursor-pointer hover:opacity-100 {page.url.pathname ===
-        '/about'
+        class="p-5 cursor-pointer hover:opacity-100 absolute top-4 right-5 {page
+            .url.pathname === '/about'
             ? 'opacity-100'
             : 'opacity-50'}">/about</a
     >
@@ -75,14 +87,18 @@
 </button>
 
 <style lang="postcss">
-    @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap");
-
     :global(html) {
         height: 100%;
-        background: linear-gradient(
+        /*background: linear-gradient(
                 to bottom,
-                oklch(0.3 0.2298 var(--hue, 0deg)) 0%,
-                oklch(0.2 0.2298 var(--hue, 0deg)) 100vh
+                oklch(0.3 0.23 var(--hue, 0deg)) 0%,
+                oklch(0.15 0.23 var(--hue, 0deg)) 100vh
+            )
+            fixed;*/
+        background: radial-gradient(
+                at bottom,
+                oklch(0.2 0.1 var(--hue, 0deg)) 0%,
+                oklch(0.1 0.1 var(--hue, 0deg)) 100vh
             )
             fixed;
         background-color: oklch(0.2 0.2298 var(--hue, 0deg));
@@ -93,7 +109,6 @@
         margin: 0;
         padding: 0;
         min-height: 100vh;
-        min-height: 100dvh;
 
         background-attachment: fixed;
         background-size: 100% 100vh;
