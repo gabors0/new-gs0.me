@@ -15,7 +15,9 @@
                 design.
             </p>
             <br />
-            <p>I'm also into photography, audio stuff and I love tinkering</p>
+            <p>I'm also into photography, audio stuff and I love tinkering.</p>
+            <br />
+            <i>I might also be in desperate need of project ideas</i>
         </div>
         <div
             class="p-8 w-full select-none opacity-50 flex-1 flex items-center justify-center"
@@ -46,7 +48,7 @@
         <p class="p-3 text-center text-lg opacity-75">technologies used</p>
         <div class="flex md:flex-row flex-col justify-between">
             <div
-                class="flex items-center justify-center gap-x-1 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+                class="flex items-center justify-center gap-x-1.5 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
             >
                 <a
                     href="https://svelte.dev"
@@ -112,6 +114,17 @@
             </div>
         </div>
         <!--//////////////////-->
+        <p class="p-3 text-center text-lg opacity-75">colors used</p>
+        <div class="flex md:flex-row flex-col justify-between">
+            <div
+                class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 mx-3 mb-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+            >
+                <span class="bg-white text-black">#ffffff</span>
+                <span class="bg-black text-white">#000000</span>
+                <span class="oklch-gradient">oklch(0.2 0.1 1-360)</span>
+            </div>
+        </div>
+        <!--//////////////////-->
         <p class="p-3 text-center text-lg opacity-75">source code</p>
         <div class="flex md:flex-row flex-col justify-between">
             <div
@@ -128,6 +141,24 @@
 </div>
 
 <style>
+    .oklch-gradient {
+        background: linear-gradient(
+            to right,
+            oklch(0.3 0.12 1) 0%,
+            oklch(0.3 0.12 30) 8.33%,
+            oklch(0.3 0.12 60) 16.67%,
+            oklch(0.3 0.12 90) 25%,
+            oklch(0.3 0.12 120) 33.33%,
+            oklch(0.3 0.12 150) 41.67%,
+            oklch(0.3 0.12 180) 50%,
+            oklch(0.3 0.12 210) 58.33%,
+            oklch(0.3 0.12 240) 66.67%,
+            oklch(0.3 0.12 270) 75%,
+            oklch(0.3 0.12 300) 83.33%,
+            oklch(0.3 0.12 330) 91.67%,
+            oklch(0.3 0.12 360) 100%
+        );
+    }
     svg:hover {
         transform: translateY(-5px);
     }

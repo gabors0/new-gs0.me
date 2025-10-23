@@ -1,14 +1,40 @@
+<script>
+    import { onMount } from "svelte";
+
+    let time = "";
+
+    function updateTime() {
+        const now = new Date();
+        time = now.toLocaleTimeString("en-GB", {
+            timeZone: "Europe/Budapest",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+        });
+    }
+
+    onMount(() => {
+        updateTime();
+        const interval = setInterval(updateTime, 1000);
+        return () => clearInterval(interval);
+    });
+</script>
+
 <div class="fadeIn flex flex-col justify-center items-center h-screen">
     <div class="flex flex-col w-[80%] mx-5 sm:mx-0 sm:w-xl">
         <div class="flex flex-row justify-between items-center mb-0.5">
-            <h1 class="font-suse-mono text-3xl">gabors0</h1>
+            <h1
+                class="font-suse-mono text-3xl hover:tracking-widest transition-[letter-spacing]"
+            >
+                gabors0
+            </h1>
             <div class="flex flex-row gap-x-1">
                 <a
                     href="https://github.com/gabors0"
                     aria-label="github"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform"
+                        class="svgIcon transition-transform duration-75"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -21,7 +47,7 @@
                     aria-label="x/twitter"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform"
+                        class="svgIcon transition-transform duration-75"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -35,7 +61,7 @@
                     target="_blank"
                     title="gabors0@proton.me"
                     ><svg
-                        class="svgIcon transition-transform"
+                        class="svgIcon transition-transform duration-75"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -48,7 +74,7 @@
                     aria-label="last.fm"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform"
+                        class="svgIcon transition-transform duration-75"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -56,16 +82,52 @@
                         /></svg
                     ></a
                 >
+                <a
+                    href="https://ko-fi.com/gabors0"
+                    aria-label="ko-fi"
+                    target="_blank"
+                >
+                    <svg
+                        class="svgIcon transition-transform duration-75"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                        color="currentColor"
+                        fill="none"
+                    >
+                        <path
+                            d="M17 5.5H4C3.05719 5.5 2.58579 5.5 2.29289 5.79289C2 6.08579 2 6.55719 2 7.5V14.5C2 16.3856 2 17.3284 2.58579 17.9142C3.17157 18.5 4.11438 18.5 6 18.5H13C13.9319 18.5 14.3978 18.5 14.7654 18.3478C15.2554 18.1448 15.6448 17.7554 15.8478 17.2654C16 16.8978 16 16.4319 16 15.5H17C19.7614 15.5 22 13.2614 22 10.5C22 7.73858 19.7614 5.5 17 5.5Z"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            d="M17 13H16V8H17C18.3807 8 19.5 9.11929 19.5 10.5C19.5 11.8807 18.3807 13 17 13Z"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linejoin="round"
+                        />
+                        <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M5.58579 9.10051C6.36683 8.29983 7.63317 8.29983 8.41421 9.10051L9 9.70101L9.58579 9.10051C10.3668 8.29983 11.6332 8.29983 12.4142 9.10051C13.1953 9.90118 13.1953 11.1993 12.4142 12L9 15.5L5.58579 12C4.80474 11.1993 4.80474 9.90118 5.58579 9.10051Z"
+                            stroke="#141B34"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        />
+                    </svg></a
+                >
             </div>
         </div>
 
-        <div class="flex flex-row justify-between items-center">
-            <p class="font-inter opacity-50">Gabor Simon</p>
-            <a href="https://ko-fi.com/gabors0" class="underline">ko-fi</a>
+        <div class="flex flex-row opacity-50 justify-between items-center">
+            <p>Gabor Simon</p>
+            <p>my time is: {time}</p>
         </div>
     </div>
-    <hr class="my-5 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" />
-    <p class="text-left w-[80%] mx-5 sm:mx-0 sm:w-xl"></p>
+    <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" />
 </div>
 
 <style>
@@ -74,6 +136,9 @@
     }
     @keyframes fadeIn {
         0% {
+            opacity: 0;
+        }
+        20% {
             opacity: 0;
             transform: scale(0.9) translateY(50px);
             filter: blur(10px);

@@ -6,10 +6,13 @@
     export let link;
     export let repo;
 
+    // @ts-ignore
     let commitDate = null;
+    // @ts-ignore
     let error = null;
     let formattedDate = null;
 
+    // @ts-ignore
     $: formattedDate = commitDate
         ? formatDistance(new Date(commitDate), new Date())
         : null;
@@ -29,6 +32,7 @@
                 const commitData = await commitRes.json();
                 commitDate = commitData.commit.author.date;
             } catch (e) {
+                // @ts-ignore
                 error = e.message;
             }
         }

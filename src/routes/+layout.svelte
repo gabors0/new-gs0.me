@@ -26,6 +26,11 @@
                 return;
             }
 
+            // Ignore if any modifier keys are pressed
+            if (event.ctrlKey || event.metaKey || event.altKey) {
+                return;
+            }
+
             switch (event.key.toLowerCase()) {
                 case "i":
                     goto("/");
@@ -116,7 +121,7 @@
 </header>
 
 <button
-    class="absolute cursor-pointer bottom-5 left-5 border-none bg-transparent"
+    class="fixed cursor-pointer bottom-5 left-5 border-none bg-transparent"
     aria-label="reroll color"
     title="reroll color"
     on:click={() => {
@@ -151,7 +156,7 @@
                 oklch(0.1 0.1 var(--hue, 0deg)) 100vh
             )
             fixed;
-        background-color: oklch(0.2 0.2298 var(--hue, 0deg));
+        background-color: oklch(0.1 0.2298 var(--hue, 0deg));
     }
 
     :global(body) {
