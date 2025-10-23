@@ -2,15 +2,6 @@
     let clicked = false;
 </script>
 
-<svelte:head>
-    <script
-        defer
-        src="https://stateflare.gabors0.workers.dev/track.js"
-    ></script>
-</svelte:head>
-<label id="uv_label">UV</label>
-<label id="pv_label">PV</label>
-
 <div class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] mx-5">
     <div
         class="bg-black/30 mb-5 md:mb-0 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
