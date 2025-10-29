@@ -53,7 +53,7 @@
 </script>
 
 <svelte:head>
-    <link rel="icon" href={favicon} />
+    <!-- <link rel="icon" href={favicon} /> -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
