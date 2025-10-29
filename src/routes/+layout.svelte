@@ -53,7 +53,9 @@
 </script>
 
 <svelte:head>
+    <!-- i need a favicon bro -->
     <!-- <link rel="icon" href={favicon} /> -->
+    <title>gabors0</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link

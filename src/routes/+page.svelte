@@ -25,7 +25,7 @@
 <div class="flex flex-col justify-center items-center h-screen">
     <div class="mx-5 sm:mx-0 sm:w-xl w-[80%] flex flex-col items-end fadeIn">
         <div
-            class="bg-black/30 border border-b-0 border-white/30 bg-blend-darken mr-3 p-1"
+            class="bg-black/30 w-auto border border-b-0 border-white/30 bg-blend-darken mr-3 p-1"
         >
             <div
                 class="bg-black border border-white/30 p-1 font-segmented text-lime-400 select-none"
@@ -41,7 +41,7 @@
     >
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1
-                class="font-suse-mono font-light text-3xl bg-linear-to-b from-white/90 to-white/60 bg-clip-text text-transparent hover:font-black transition-all"
+                class="font-suse-mono font-light text-3xl bg-linear-to-b from-white/90 to-white/60 bg-clip-text text-transparent hover:tracking-wider hover:text-white transition-[color,letter-spacing]"
             >
                 gabors0
             </h1>
