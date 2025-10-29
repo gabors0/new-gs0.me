@@ -2,15 +2,17 @@
     import { onMount } from "svelte";
 
     let time = "";
+    let showColon = true;
 
     function updateTime() {
         const now = new Date();
-        time = now.toLocaleTimeString("en-GB", {
+        const timeString = now.toLocaleTimeString("en-GB", {
             timeZone: "Europe/Budapest",
             hour: "2-digit",
             minute: "2-digit",
-            second: "2-digit",
         });
+        time = showColon ? timeString : timeString.replace(":", " ");
+        showColon = !showColon;
     }
 
     onMount(() => {
@@ -21,16 +23,29 @@
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen">
+    <div class="mx-5 sm:mx-0 sm:w-xl w-[80%] flex flex-col items-end fadeIn">
+        <div
+            class="bg-black/30 border border-b-0 border-white/30 bg-blend-darken mr-3 p-1"
+        >
+            <div
+                class="bg-black border border-white/30 p-1 font-segmented text-lime-400 select-none"
+                aria-label="current time in my timezone"
+                title="current time in my timezone"
+            >
+                {time}
+            </div>
+        </div>
+    </div>
     <div
-        class="fadeIn flex flex-col w-[80%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
+        class="fadeIn flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
     >
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1
-                class="font-suse-mono font-light text-3xl bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent hover:font-black transition-all"
+                class="font-suse-mono font-light text-3xl bg-linear-to-b from-white/90 to-white/60 bg-clip-text text-transparent hover:font-black transition-all"
             >
                 gabors0
             </h1>
-            <div class="flex flex-row gap-x-1">
+            <div class="flex flex-row flex-wrap justify-end gap-x-1">
                 <a
                     href="https://github.com/gabors0"
                     aria-label="github"
@@ -126,7 +141,7 @@
 
         <div class="flex flex-row opacity-50 justify-between items-center">
             <p>Gabor Simon</p>
-            <p>my time is: {time}</p>
+            <p></p>
         </div>
     </div>
     <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
