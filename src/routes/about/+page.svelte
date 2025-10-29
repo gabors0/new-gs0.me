@@ -31,7 +31,8 @@
                     clicked = true;
                 }}
                 class="font-mono text-xl text-center cursor-pointer"
-                title="cat from https://www.asciiart.eu/animals/cats">
+                title="cat from https://www.asciiart.eu/animals/cats"
+                aria-hidden="true">
 
 
 {#if clicked}&lt;3{/if}

@@ -74,12 +74,8 @@
     {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');}catch(e){} })();<\/script>`}
 </svelte:head>
 
-<main>
-    <slot />
-</main>
-
 <header
-    class="flex items-center w-screen absolute top-0 left-0 *:transition-colors *:duration-100"
+    class="flex z-99 items-center w-screen absolute top-0 left-0 *:transition-colors *:duration-100"
 >
     <a
         href="/"
@@ -119,6 +115,10 @@
         >bout</a
     >
 </header>
+
+<main>
+    <slot />
+</main>
 
 {#if page.url.pathname === "/"}
     <button
