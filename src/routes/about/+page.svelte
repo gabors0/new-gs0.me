@@ -97,7 +97,7 @@
         <p class="p-3 text-center text-lg opacity-75">fonts used</p>
         <div class="flex md:flex-row flex-col justify-between">
             <div
-                class="flex items-center justify-center mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+                class="flex items-center justify-center mx-3 md:w-full font-inter text-4xl text-center p-8 border-b-0 md:border border border-white/30"
             >
                 <a
                     class="hover:underline"
@@ -120,7 +120,7 @@
         <p class="p-3 text-center text-lg opacity-75">colors used</p>
         <div class="flex md:flex-row flex-col justify-between">
             <div
-                class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 mx-3 mb-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
+                class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
             >
                 <span class="bg-white text-black">#ffffff</span>
                 <span class="bg-black text-white">#000000</span>
