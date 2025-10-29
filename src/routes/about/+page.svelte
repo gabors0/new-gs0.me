@@ -6,7 +6,7 @@
     class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] pb-5 md:pb-0 mx-5"
 >
     <div
-        class="bg-black/30 mb-5 md:mb-0 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
+        class="bg-black/30 border border-white/30 bg-blend-darken mb-5 md:mb-0 w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
     >
         <h1 class="font-bold p-3 text-2xl text-center">about me</h1>
         <hr class="w-full text-white/30" />
@@ -30,7 +30,8 @@
                 onclick={() => {
                     clicked = true;
                 }}
-                class="font-mono text-xl text-center cursor-pointer">
+                class="font-mono text-xl text-center cursor-pointer"
+                title="cat from https://www.asciiart.eu/animals/cats">
 
 
 {#if clicked}&lt;3{/if}

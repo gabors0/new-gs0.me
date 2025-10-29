@@ -20,11 +20,13 @@
     });
 </script>
 
-<div class="fadeIn flex flex-col justify-center items-center h-screen">
-    <div class="flex flex-col w-[80%] mx-5 sm:mx-0 sm:w-xl">
+<div class="flex flex-col justify-center items-center h-screen">
+    <div
+        class="fadeIn flex flex-col w-[80%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
+    >
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1
-                class="font-suse-mono text-3xl bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent hover:tracking-widest transition-all"
+                class="font-suse-mono font-light text-3xl bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent hover:font-black transition-all"
             >
                 gabors0
             </h1>
@@ -34,7 +36,7 @@
                     aria-label="github"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform duration-75"
+                        class="svgIcon transition-all duration-75 opacity-75 hover:-translate-y-1.5 hover:opacity-100"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -47,7 +49,7 @@
                     aria-label="x/twitter"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform duration-75"
+                        class="svgIcon transition-all duration-75 opacity-75 hover:-translate-y-1.5 hover:opacity-100"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -61,7 +63,7 @@
                     target="_blank"
                     title="gabors0@proton.me"
                     ><svg
-                        class="svgIcon transition-transform duration-75"
+                        class="svgIcon transition-all duration-75 opacity-75 hover:-translate-y-1.5 hover:opacity-100"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -74,7 +76,7 @@
                     aria-label="last.fm"
                     target="_blank"
                     ><svg
-                        class="svgIcon transition-transform duration-75"
+                        class="svgIcon transition-all duration-75 opacity-75 hover:-translate-y-1.5 hover:opacity-100"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 640 640"
                         ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
@@ -88,7 +90,7 @@
                     target="_blank"
                 >
                     <svg
-                        class="svgIcon transition-transform duration-75"
+                        class="svgIcon transition-all duration-75 opacity-75 hover:-translate-y-1.5 hover:opacity-100"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         width="24"
@@ -127,27 +129,28 @@
             <p>my time is: {time}</p>
         </div>
     </div>
-    <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" />
+    <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
 </div>
 
 <style>
-    svg:hover {
-        transform: translateY(-5px);
-    }
     @keyframes fadeIn {
         0% {
             opacity: 0;
-        }
-        20% {
-            opacity: 0;
-            transform: scale(0.9) translateY(50px);
+            transform: scale(0.8) translateY(120px);
             filter: blur(10px);
+        }
+        30% {
+            opacity: 0;
         }
         100% {
             opacity: 1;
+            transform: none;
         }
     }
     .fadeIn {
-        animation: fadeIn 0.5s ease-in-out;
+        opacity: 0;
+        animation: fadeIn 0.7s ease-in-out;
+        animation-delay: 0.1s;
+        animation-fill-mode: forwards;
     }
 </style>
