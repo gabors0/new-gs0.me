@@ -11,6 +11,7 @@
         link="https://search.gs0.me"
         repo="unduck-startpage"
     />
+    <i class="opacity-50 text-center w-full">thats it so far...</i>
 </div>
 
 <style>

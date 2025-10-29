@@ -24,7 +24,7 @@
     <div class="flex flex-col w-[80%] mx-5 sm:mx-0 sm:w-xl">
         <div class="flex flex-row justify-between items-center mb-0.5">
             <h1
-                class="font-suse-mono text-3xl hover:tracking-widest transition-[letter-spacing]"
+                class="font-suse-mono text-3xl bg-linear-to-b from-white to-white/60 bg-clip-text text-transparent hover:tracking-widest transition-all"
             >
                 gabors0
             </h1>

@@ -2,7 +2,9 @@
     let clicked = false;
 </script>
 
-<div class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] mx-5">
+<div
+    class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] pb-5 md:pb-0 mx-5"
+>
     <div
         class="bg-black/30 mb-5 md:mb-0 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
     >
