@@ -28,11 +28,11 @@
       class="bg-black/30 w-auto border border-b-0 border-white/30 bg-blend-darken mr-3 p-1"
     >
       <div
-        class="bg-black border border-white/30 p-1 font-segmented text-lime-400 select-none"
+        class="bg-[#050505] w-full h-full border border-white/30 p-1 text-lime-400 text-xl font-segmented select-none"
         aria-label="current time in my timezone"
         title="current time in my timezone"
       >
-        {time}
+        <span class="font-segmented drop-shadow-[0_0_5px_#6da300]">{time}</span>
       </div>
     </div>
   </div>

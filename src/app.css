@@ -9,9 +9,7 @@
 
 @font-face {
   font-family: "DSEG7 Modern";
-  src:
-    url("/DSEG7Modern-Regular.woff2") format("woff2"),
-    url("/DSEG7Modern-Regular.ttf") format("truetype");
+  src: url("/DSEG7Modern-Bold.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
