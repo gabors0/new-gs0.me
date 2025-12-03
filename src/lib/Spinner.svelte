@@ -1,17 +1,30 @@
 <script lang="ts">
   import { onMount } from "svelte";
   let spinner: HTMLElement;
-  const states = ["⠟", "⠯", "⠷", "⠾", "⠽", "⠻"];
+  const frames = [
+    "[ ●    ]",
+    "[  ●   ]",
+    "[   ●  ]",
+    "[    ● ]",
+    "[     ●]",
+    "[    ● ]",
+    "[   ●  ]",
+    "[  ●   ]",
+    "[ ●    ]",
+    "[●     ]",
+  ];
   let index = 0;
   onMount(() => {
     const interval = setInterval(() => {
       if (spinner) {
-        spinner.textContent = states[index];
-        index = (index + 1) % states.length;
+        spinner.textContent = frames[index];
+        index = (index + 1) % frames.length;
       }
     }, 80);
     return () => clearInterval(interval);
   });
 </script>
 
-<span class="select-none tabular-nums text-xl" bind:this={spinner}></span>
+<pre
+  class="select-none font-suse-mono tabular-nums text-xl"
+  bind:this={spinner}></pre>

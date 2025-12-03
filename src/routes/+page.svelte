@@ -1,4 +1,5 @@
 <script>
+  import Spinner from "$lib/Spinner.svelte";
   import { onMount } from "svelte";
 
   let time = "";
@@ -134,7 +135,7 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <p></p>
+      <p><Spinner /></p>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
@@ -144,7 +145,7 @@
   @keyframes fadeIn {
     0% {
       opacity: 0;
-      transform: scale(0.7) translateY(100px);
+      transform: scale(0.6);
       filter: blur(30px);
     }
     100% {
@@ -155,6 +156,7 @@
   .fadeIn {
     opacity: 0;
     animation: fadeIn 0.6s ease-in-out;
+    animation-delay: 0.1s;
     animation-fill-mode: forwards;
   }
 </style>
