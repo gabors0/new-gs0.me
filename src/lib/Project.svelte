@@ -1,18 +1,16 @@
 <script>
   import { onMount } from "svelte";
   import { formatDistance } from "date-fns";
+  import Spinner from "./Spinner.svelte";
   export let title;
   export let description;
   export let link;
   export let repo;
 
-  // @ts-ignore
   let commitDate = null;
-  // @ts-ignore
   let error = null;
   let formattedDate = null;
 
-  // @ts-ignore
   $: formattedDate = commitDate
     ? formatDistance(new Date(commitDate), new Date())
     : null;
@@ -32,7 +30,6 @@
         const commitData = await commitRes.json();
         commitDate = commitData.commit.author.date;
       } catch (e) {
-        // @ts-ignore
         error = e.message;
       }
     }
@@ -48,7 +45,7 @@
   <div class="flex justify-between p-4">
     <span class="italic opacity-70"
       >{#if error}{error}{:else if formattedDate}last modified: {formattedDate}
-        ago{:else if repo == ""}{:else}Loading...{/if}</span
+        ago{:else if repo == ""}{:else}<Spinner />{/if}</span
     >
     <div class="flex flex-row">
       {#if link !== ""}
