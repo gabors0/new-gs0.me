@@ -26,5 +26,5 @@
 </script>
 
 <pre
-  class="select-none font-suse-mono tabular-nums text-xl"
+  class="select-none not-italic! font-suse-mono tabular-nums text-xl"
   bind:this={spinner}></pre>
