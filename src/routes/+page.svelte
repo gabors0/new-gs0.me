@@ -135,7 +135,7 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <p><Spinner /></p>
+      <span><Spinner /></span>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
