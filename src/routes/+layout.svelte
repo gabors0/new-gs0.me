@@ -5,7 +5,9 @@
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
+  import { dev } from "$app/environment";
   import { injectAnalytics } from "@vercel/analytics/sveltekit";
+  injectAnalytics({ mode: dev ? "development" : "production" });
 
   // Generate a hue during SSR so the initial HTML/CSS contains the color and
   // the page does not flash the fallback color on first paint.
