@@ -8,9 +8,7 @@
   import { dev } from "$app/environment";
   import { injectAnalytics } from "@vercel/analytics/sveltekit";
   onMount(() => {
-    injectAnalytics({
-      mode: dev ? "development" : "production",
-    });
+    injectAnalytics();
   });
 
   // Generate a hue during SSR so the initial HTML/CSS contains the color and
