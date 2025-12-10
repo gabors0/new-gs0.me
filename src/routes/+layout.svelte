@@ -131,32 +131,7 @@
   <slot />
 </main>
 
-{#if page.url.pathname === "/"}
-  <button
-    class="fixed cursor-pointer bottom-5 left-5 hover:*:opacity-100"
-    aria-label="reroll color"
-    title="reroll color"
-    on:click={() => {
-      document.documentElement.style.setProperty(
-        "--hue",
-        Math.floor(Math.random() * 361) + "deg",
-      );
-      document.documentElement.style.setProperty(
-        "--chroma",
-        parseFloat((Math.random() * 0.1).toFixed(3)),
-      );
-    }}
-  >
-    <svg
-      class="svgIcon opacity-50 transition-opacity duration-200"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 640 640"
-      ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-        d="M534.6 182.6C547.1 170.1 547.1 149.8 534.6 137.3L470.6 73.3C461.4 64.1 447.7 61.4 435.7 66.4C423.7 71.4 416 83.1 416 96L416 128L256 128C150 128 64 214 64 320C64 337.7 78.3 352 96 352C113.7 352 128 337.7 128 320C128 249.3 185.3 192 256 192L416 192L416 224C416 236.9 423.8 248.6 435.8 253.6C447.8 258.6 461.5 255.8 470.7 246.7L534.7 182.7zM105.4 457.4C92.9 469.9 92.9 490.2 105.4 502.7L169.4 566.7C178.6 575.9 192.3 578.6 204.3 573.6C216.3 568.6 224 556.9 224 544L224 512L384 512C490 512 576 426 576 320C576 302.3 561.7 288 544 288C526.3 288 512 302.3 512 320C512 390.7 454.7 448 384 448L224 448L224 416C224 403.1 216.2 391.4 204.2 386.4C192.2 381.4 178.5 384.2 169.3 393.3L105.3 457.3z"
-      /></svg
-    >
-  </button>
-{/if}
+{#if page.url.pathname === "/"}{/if}
 
 <style lang="postcss">
   :global(html) {
@@ -174,6 +149,14 @@
       )
       fixed;
     background-color: oklch(0.05 0.2298 var(--hue, 0deg));
+  }
+
+  :global(*):focus {
+    outline: none;
+  }
+
+  :global(*):focus-visible {
+    outline: 1px solid rgba(255, 255, 255, 0.5);
   }
 
   :global(body) {

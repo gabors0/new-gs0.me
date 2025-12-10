@@ -39,7 +39,7 @@
 <div class="border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0">
   <h1 class="font-bold p-3 text-2xl text-center">{title}</h1>
   <hr class="w-full text-white/30" />
-  <p class="p-4 opacity-75 text-lg">{description}</p>
+  <p class="p-4 opacity-70 text-lg">{description}</p>
   <div class="flex justify-between p-4">
     <span class="italic align-middle opacity-70"
       >{#if error}{error}{:else if formattedDate}last modified: {formattedDate}
