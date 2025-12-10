@@ -16,9 +16,11 @@
   // Generate a hue during SSR so the initial HTML/CSS contains the color and
   // the page does not flash the fallback color on first paint.
   let ssrHue: number | null = null;
+  let ssrChroma: number | null = null;
 
   if (!browser) {
     ssrHue = Math.floor(Math.random() * 361);
+    ssrChroma = parseFloat((Math.random() * 0.1).toFixed(3));
   }
 
   onMount(() => {
@@ -75,12 +77,15 @@
     rel="stylesheet"
   />
 
-  {#if ssrHue !== null}
+  {#if ssrHue !== null || ssrChroma !== null}
     <style>
-            :root { --hue: {ssrHue}deg; }
+            :root {
+                --hue: {ssrHue}deg;
+                --chroma: {ssrChroma};
+            }
     </style>
   {/if}
-  {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');}catch(e){} })();<\/script>`}
+  {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');r.style.setProperty('--chroma',parseFloat((Math.random()*0.1).toFixed(3)));}catch(e){} })();<\/script>`}
 </svelte:head>
 
 <header
@@ -136,6 +141,10 @@
         "--hue",
         Math.floor(Math.random() * 361) + "deg",
       );
+      document.documentElement.style.setProperty(
+        "--chroma",
+        parseFloat((Math.random() * 0.1).toFixed(3)),
+      );
     }}
   >
     <svg
@@ -160,8 +169,8 @@
             fixed;*/
     background: radial-gradient(
         at bottom,
-        oklch(0.25 0.1 var(--hue, 0deg)) -50vh,
-        oklch(0.1 0.1 var(--hue, 0deg)) 100vh
+        oklch(0.25 var(--chroma, 0.1) var(--hue, 0deg)) -50vh,
+        oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg)) 100vh
       )
       fixed;
     background-color: oklch(0.05 0.2298 var(--hue, 0deg));
