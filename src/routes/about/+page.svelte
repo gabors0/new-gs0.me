@@ -10,7 +10,7 @@
   >
     <h1 class="font-bold p-3 text-2xl text-center">about me</h1>
     <hr class="w-full text-white/30" />
-    <div class="p-8 opacity-75 text-lg font-apfel">
+    <div class="p-8 opacity-70 text-lg font-apfel">
       <p>
         I'm a 17 year old mostly self-taught student/developer from Hungary,
         currently I'm mainly learning frontend since I love UI design.
@@ -48,7 +48,7 @@
     <h1 class="font-bold p-3 text-2xl text-center">about this site</h1>
     <hr class="w-full text-white/30" />
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-75">technologies used</p>
+    <p class="p-3 text-center text-lg opacity-70">technologies used</p>
     <div class="flex md:flex-row flex-col justify-between">
       <div
         class="flex items-center justify-center gap-x-1.5 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
@@ -88,7 +88,7 @@
       </div>
     </div>
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-75">fonts used</p>
+    <p class="p-3 text-center text-lg opacity-70">fonts used</p>
     <div class="flex lg:mb-3 mb-0 lg:flex-row flex-col justify-between">
       <div
         class="flex items-center justify-center mx-3 lg:w-full font-inter text-4xl text-center p-8 border-b-0 lg:border border border-white/30"
@@ -132,7 +132,7 @@
     </div>
 
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-75">colors used</p>
+    <p class="p-3 text-center text-lg opacity-70">colors used</p>
     <div class="flex md:flex-row flex-col justify-between">
       <div
         class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 mx-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
@@ -143,7 +143,7 @@
       </div>
     </div>
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-75">source code</p>
+    <p class="p-3 text-center text-lg opacity-70">source code</p>
     <div class="flex md:flex-row flex-col justify-between">
       <div
         class="flex items-center justify-center gap-x-1 mx-3 mb-3 md:w-full font-inter text-4xl text-center p-8 border border-white/30"
