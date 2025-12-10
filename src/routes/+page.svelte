@@ -24,22 +24,24 @@
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen fadeIn">
-  <div class="mx-5 sm:mx-0 sm:w-xl w-[80%] flex flex-col items-end">
-    <div
-      class="bg-black/30 w-auto border border-b-0 border-white/30 bg-blend-darken mr-3 p-1"
-    >
+  <div
+    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
+  >
+    <div class="absolute -top-12 right-3">
       <div
-        class="bg-[#050505] w-full h-full border border-white/30 p-1 text-lime-400 text-xl font-segmented select-none"
-        aria-label="current time in my timezone"
-        title="current time in my timezone"
+        class="bg-black/30 w-auto border border-b-0 border-white/30 bg-blend-darken p-1"
       >
-        <span class="font-segmented drop-shadow-[0_0_5px_#6da300]">{time}</span>
+        <div
+          class="bg-[#050505] w-full h-full border border-white/30 p-1 text-lime-400 text-xl font-segmented select-none"
+          aria-label="current time in my timezone"
+          title="current time in my timezone"
+        >
+          <span class="font-segmented drop-shadow-[0_0_5px_#6da300]"
+            >{time}</span
+          >
+        </div>
       </div>
     </div>
-  </div>
-  <div
-    class="flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
-  >
     <div class="flex flex-row justify-between items-center mb-0.5">
       <h1
         class="font-suse-mono font-light text-3xl bg-linear-to-b from-white/90 to-white/60 bg-clip-text text-transparent hover:tracking-wider hover:text-white transition-[color,letter-spacing]"
@@ -135,7 +137,7 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <span><Spinner /></span>
+      <span><Spinner type="big" /></span>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->

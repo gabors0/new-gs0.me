@@ -1,18 +1,24 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  export let type = "small";
   let spinner: HTMLElement;
-  const frames = [
-    "[ ●    ]",
-    "[  ●   ]",
-    "[   ●  ]",
-    "[    ● ]",
-    "[     ●]",
-    "[    ● ]",
-    "[   ●  ]",
-    "[  ●   ]",
-    "[ ●    ]",
-    "[●     ]",
-  ];
+  let frames: string[];
+
+  if (type === "big") {
+    frames = [
+      "[ ●    ]",
+      "[  ●   ]",
+      "[   ●  ]",
+      "[    ● ]",
+      "[     ●]",
+      "[    ● ]",
+      "[   ●  ]",
+      "[  ●   ]",
+      "[ ●    ]",
+      "[●     ]",
+    ];
+  } else frames = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"];
+
   let index = 0;
   onMount(() => {
     const interval = setInterval(() => {
