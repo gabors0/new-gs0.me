@@ -45,6 +45,20 @@
     root.style.setProperty("--hue", `${newHue}deg`);
   }
 
+  //colors menu
+  let areStatsVisible = $derived($statsVisible);
+  let hue = $state(0);
+  let chroma = $state(0.1);
+
+  onMount(() => {
+    const root = document.documentElement;
+    const computedStyle = getComputedStyle(root);
+    hue = parseFloat(
+      computedStyle.getPropertyValue("--hue").replace("deg", ""),
+    );
+    chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
+  });
+
   onMount(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, or contenteditable element
@@ -72,6 +86,18 @@
         case "a":
           goto("/about");
           break;
+        case "r":
+          hue = Math.floor(Math.random() * 361);
+          chroma = parseFloat((Math.random() * 0.1).toFixed(3));
+          setHueSmoothly(hue);
+          document.documentElement.style.setProperty("--chroma", chroma);
+          break;
+        case "d":
+        if (page.url.pathname === "/") {
+          statsVisible.update(v => !v);
+          break;
+        }
+        else break;
       }
     };
 
@@ -80,20 +106,6 @@
     return () => {
       window.removeEventListener("keydown", handleKeyPress);
     };
-  });
-
-  //colors menu
-  let areStatsVisible = $derived($statsVisible);
-  let hue = $state(0);
-  let chroma = $state(0.1);
-
-  onMount(() => {
-    const root = document.documentElement;
-    const computedStyle = getComputedStyle(root);
-    hue = parseFloat(
-      computedStyle.getPropertyValue("--hue").replace("deg", ""),
-    );
-    chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
   });
 
   //copy to clipboard
@@ -137,7 +149,7 @@
     class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 left-5
     {page.url.pathname === '/' ? 'text-white/100' : 'text-white/50'}"
     >/<span
-      class="group-hover:!text-white/100 {page.url.pathname === '/'
+      class="group-hover:!text-white/100 transition-colors duration-100 {page.url.pathname === '/'
         ? 'text-white/100'
         : 'text-white/75'}">i</span
     >ndex</a
@@ -149,7 +161,7 @@
       ? 'text-white/100'
       : 'text-white/50'}"
     >/<span
-      class="group-hover:!text-white/100 {page.url.pathname === '/projects'
+      class="group-hover:!text-white/100 transition-colors duration-100 {page.url.pathname === '/projects'
         ? 'text-white/100'
         : 'text-white/75'}">p</span
     >rojects</a
@@ -161,7 +173,7 @@
       ? 'text-white/100'
       : 'text-white/50'}"
     >/<span
-      class="group-hover:!text-white/100 {page.url.pathname === '/about'
+      class="group-hover:!text-white/100 transition-colors duration-100 {page.url.pathname === '/about'
         ? 'text-white/100'
         : 'text-white/75'}">a</span
     >bout</a
@@ -176,24 +188,7 @@
   <div class="fixed bottom-5 left-5 flex justify-end flex-col">
     <div class="flex flex-row gap-x-2">
       <button
-        class="cursor-pointer hover:*:opacity-100"
-        aria-label="color info"
-        title="color info"
-        onclick={() => {
-          statsVisible.update(v => !v);
-        }}
-      >
-        <svg
-          class="svgIcon opacity-50 transition-opacity duration-200"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 640 640"
-          ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-            d="M224 224C224 171 267 128 320 128C373 128 416 171 416 224C416 266.7 388.1 302.9 349.5 315.4C321.1 324.6 288 350.7 288 392L288 416C288 433.7 302.3 448 320 448C337.7 448 352 433.7 352 416L352 392C352 390.3 352.6 387.9 355.5 384.7C358.5 381.4 363.4 378.2 369.2 376.3C433.5 355.6 480 295.3 480 224C480 135.6 408.4 64 320 64C231.6 64 160 135.6 160 224C160 241.7 174.3 256 192 256C209.7 256 224 241.7 224 224zM320 576C342.1 576 360 558.1 360 536C360 513.9 342.1 496 320 496C297.9 496 280 513.9 280 536C280 558.1 297.9 576 320 576z"
-          /></svg
-        >
-      </button>
-      <button
-        class="cursor-pointer hover:*:opacity-100"
+        class="cursor-pointer text-white/50 hover:text-white hover:*:text-white transition-colors duration-200"
         aria-label="reroll color"
         title="reroll color"
         onclick={() => {
@@ -203,14 +198,18 @@
           document.documentElement.style.setProperty("--chroma", chroma);
         }}
       >
-        <svg
-          class="svgIcon opacity-50 transition-opacity duration-200"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 640 640"
-          ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-            d="M534.6 182.6C547.1 170.1 547.1 149.8 534.6 137.3L470.6 73.3C461.4 64.1 447.7 61.4 435.7 66.4C423.7 71.4 416 83.1 416 96L416 128L256 128C150 128 64 214 64 320C64 337.7 78.3 352 96 352C113.7 352 128 337.7 128 320C128 249.3 185.3 192 256 192L416 192L416 224C416 236.9 423.8 248.6 435.8 253.6C447.8 258.6 461.5 255.8 470.7 246.7L534.7 182.7zM105.4 457.4C92.9 469.9 92.9 490.2 105.4 502.7L169.4 566.7C178.6 575.9 192.3 578.6 204.3 573.6C216.3 568.6 224 556.9 224 544L224 512L384 512C490 512 576 426 576 320C576 302.3 561.7 288 544 288C526.3 288 512 302.3 512 320C512 390.7 454.7 448 384 448L224 448L224 416C224 403.1 216.2 391.4 204.2 386.4C192.2 381.4 178.5 384.2 169.3 393.3L105.3 457.3z"
-          /></svg
-        >
+        <span class="text-white/75 transition-colors duration-200">r</span>eroll color
+      </button>
+      <span class="text-white/50 select-none">•</span>
+      <button
+        class="cursor-pointer text-white/50 hover:text-white hover:*:text-white transition-colors duration-200"
+        aria-label="color info"
+        title="color info"
+        onclick={() => {
+          statsVisible.update(v => !v);
+        }}
+      >
+          <span class="text-white/75 transition-colors duration-200">d</span>etails
       </button>
     </div>
     {#if areStatsVisible}
