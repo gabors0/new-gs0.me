@@ -47,7 +47,8 @@
 
 <div class="flex flex-col justify-center items-center h-screen fadeIn">
   <div
-    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl"
+    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main"
+    class:hidden-short={areStatsVisible}
   >
     <div class="absolute -top-12 right-3">
       <div
@@ -296,5 +297,18 @@
     animation: fadeIn 0.6s ease-in-out;
     animation-delay: 0.1s;
     animation-fill-mode: forwards;
+  }
+
+  /*tailwind of this didnt work on webkit for some reason*/
+  .main {
+    opacity: 1;
+    transition: opacity 150ms;
+  }
+
+  @media (max-height: 640px) {
+    .main.hidden-short {
+      opacity: 0;
+      pointer-events: none;
+    }
   }
 </style>
