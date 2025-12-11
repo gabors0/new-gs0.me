@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../app.css";
-  import favicon from "$lib/assets/sandwich.png";
   import { browser } from "$app/environment";
   import { page } from "$app/state";
   import { goto } from "$app/navigation";
@@ -18,8 +17,7 @@
     });
   });
 
-  // Generate a hue during SSR so the initial HTML/CSS contains the color and
-  // the page does not flash the fallback color on first paint.
+  // Generate a hue during SSR so the initial HTML/CSS contains the color
   let ssrHue: number | null = $state(null);
   let ssrChroma: number | null = $state(null);
 
@@ -59,6 +57,7 @@
     chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
   });
 
+  // keybinds
   onMount(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, or contenteditable element
@@ -90,7 +89,7 @@
           hue = Math.floor(Math.random() * 361);
           chroma = parseFloat((Math.random() * 0.1).toFixed(3));
           setHueSmoothly(hue);
-          document.documentElement.style.setProperty("--chroma", chroma);
+          document.documentElement.style.setProperty("--chroma", chroma.toString());
           break;
         case "d":
         if (page.url.pathname === "/") {
@@ -112,11 +111,13 @@
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text);
   }
+
+  // dynamic favicon
+  let faviconUrl = $derived(`data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle r="16" cx="16" cy="16" fill="oklch(0.4 ${chroma} ${hue}deg)"/></svg>`)}`);
 </script>
 
 <svelte:head>
-  <!-- i need a favicon bro -->
-  <!-- <link rel="icon" href={favicon} /> -->
+  <link rel="icon" href={faviconUrl} />
   <title>gabors0</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -195,7 +196,7 @@
           hue = Math.floor(Math.random() * 361);
           chroma = parseFloat((Math.random() * 0.1).toFixed(3));
           setHueSmoothly(hue);
-          document.documentElement.style.setProperty("--chroma", chroma);
+          document.documentElement.style.setProperty("--chroma", chroma.toString());
         }}
       >
         <span class="text-white/75 transition-colors duration-200">r</span>eroll color
