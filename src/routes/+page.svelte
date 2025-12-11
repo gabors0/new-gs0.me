@@ -3,7 +3,7 @@
 
   import Spinner from "$lib/Spinner.svelte";
   import { onMount } from "svelte";
-  import { slide } from "svelte/transition";
+  import { statsVisible } from "$lib/stores";
 
   //clock
   let time = $state("");
@@ -24,31 +24,13 @@
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   });
-
-  //colors menu
-  let areStatsVisible = $state(false);
-  let hue = $state(0);
-  let chroma = $state(0.1);
-
-  onMount(() => {
-    const root = document.documentElement;
-    const computedStyle = getComputedStyle(root);
-    hue = parseFloat(
-      computedStyle.getPropertyValue("--hue").replace("deg", ""),
-    );
-    chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
-  });
-
-  //copy to clipboard
-  function copyToClipboard(text) {
-    navigator.clipboard.writeText(text);
-  }
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen fadeIn">
   <div
-    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main"
-    class:hidden-short={areStatsVisible}
+    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {$statsVisible
+      ? 'hidden-short'
+      : ''}"
   >
     <div class="absolute -top-12 right-3">
       <div
@@ -166,120 +148,6 @@
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
 </div>
 
-<div class="fixed bottom-5 left-5 flex justify-end flex-col">
-  <div class="flex flex-row gap-x-2">
-    <button
-      class="cursor-pointer hover:*:opacity-100"
-      aria-label="color info"
-      title="color info"
-      onclick={() => {
-        areStatsVisible = !areStatsVisible;
-      }}
-    >
-      <svg
-        class="svgIcon opacity-50 transition-opacity duration-200"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 640 640"
-        ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-          d="M224 224C224 171 267 128 320 128C373 128 416 171 416 224C416 266.7 388.1 302.9 349.5 315.4C321.1 324.6 288 350.7 288 392L288 416C288 433.7 302.3 448 320 448C337.7 448 352 433.7 352 416L352 392C352 390.3 352.6 387.9 355.5 384.7C358.5 381.4 363.4 378.2 369.2 376.3C433.5 355.6 480 295.3 480 224C480 135.6 408.4 64 320 64C231.6 64 160 135.6 160 224C160 241.7 174.3 256 192 256C209.7 256 224 241.7 224 224zM320 576C342.1 576 360 558.1 360 536C360 513.9 342.1 496 320 496C297.9 496 280 513.9 280 536C280 558.1 297.9 576 320 576z"
-        /></svg
-      >
-    </button>
-    <button
-      class="cursor-pointer hover:*:opacity-100"
-      aria-label="reroll color"
-      title="reroll color"
-      onclick={() => {
-        hue = Math.floor(Math.random() * 361);
-        chroma = parseFloat((Math.random() * 0.1).toFixed(3));
-        document.documentElement.style.setProperty("--hue", hue + "deg");
-        document.documentElement.style.setProperty("--chroma", chroma);
-      }}
-    >
-      <svg
-        class="svgIcon opacity-50 transition-opacity duration-200"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 640 640"
-        ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-          d="M534.6 182.6C547.1 170.1 547.1 149.8 534.6 137.3L470.6 73.3C461.4 64.1 447.7 61.4 435.7 66.4C423.7 71.4 416 83.1 416 96L416 128L256 128C150 128 64 214 64 320C64 337.7 78.3 352 96 352C113.7 352 128 337.7 128 320C128 249.3 185.3 192 256 192L416 192L416 224C416 236.9 423.8 248.6 435.8 253.6C447.8 258.6 461.5 255.8 470.7 246.7L534.7 182.7zM105.4 457.4C92.9 469.9 92.9 490.2 105.4 502.7L169.4 566.7C178.6 575.9 192.3 578.6 204.3 573.6C216.3 568.6 224 556.9 224 544L224 512L384 512C490 512 576 426 576 320C576 302.3 561.7 288 544 288C526.3 288 512 302.3 512 320C512 390.7 454.7 448 384 448L224 448L224 416C224 403.1 216.2 391.4 204.2 386.4C192.2 381.4 178.5 384.2 169.3 393.3L105.3 457.3z"
-        /></svg
-      >
-    </button>
-  </div>
-  {#if areStatsVisible}
-    <div
-      class="bg-black/30 border border-white/30 sm:w-md bg-blend-darken mt-3 mr-5 sm:mr-0"
-      transition:slide={{ duration: 300 }}
-    >
-      <div class="flex flex-row justify-between items-center">
-        <h1 class="text-xl font-bold p-4">current colors</h1>
-        <a
-          href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl"
-          class="p-4 opacity-70 hover:opacity-100 transition-opacity duration-200 hover:underline"
-          target="_blank">about oklch</a
-        >
-      </div>
-      <hr class="w-full text-white/30" />
-      <div
-        class="grid grid-cols-[auto_1fr_min-content] grid-rows-2 gap-2 p-4 [&_p]:text-lg"
-      >
-        <p>from:</p>
-        <p class="font-suse-mono">oklch(0.25 {chroma} {hue})</p>
-        <div class="flex flex-row">
-          <button
-            onclick={() => copyToClipboard(`oklch(0.25 ${chroma} ${hue}deg)`)}
-          >
-            <svg
-              class="svgIcon cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 640"
-              ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-                d="M480 400L288 400C279.2 400 272 392.8 272 384L272 128C272 119.2 279.2 112 288 112L421.5 112C425.7 112 429.8 113.7 432.8 116.7L491.3 175.2C494.3 178.2 496 182.3 496 186.5L496 384C496 392.8 488.8 400 480 400zM288 448L480 448C515.3 448 544 419.3 544 384L544 186.5C544 169.5 537.3 153.2 525.3 141.2L466.7 82.7C454.7 70.7 438.5 64 421.5 64L288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L368 496L368 512C368 520.8 360.8 528 352 528L160 528C151.2 528 144 520.8 144 512L144 256C144 247.2 151.2 240 160 240L176 240L176 192L160 192z"
-              /></svg
-            >
-          </button>
-          <a href="https://oklch.com/#0.25,{chroma},{hue},100" target="_blank">
-            <svg
-              class="svgIcon cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 640"
-              ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-                d="M354.4 83.8C359.4 71.8 371.1 64 384 64L544 64C561.7 64 576 78.3 576 96L576 256C576 268.9 568.2 280.6 556.2 285.6C544.2 290.6 530.5 287.8 521.3 278.7L464 221.3L310.6 374.6C298.1 387.1 277.8 387.1 265.3 374.6C252.8 362.1 252.8 341.8 265.3 329.3L418.7 176L361.4 118.6C352.2 109.4 349.5 95.7 354.5 83.7zM64 240C64 195.8 99.8 160 144 160L224 160C241.7 160 256 174.3 256 192C256 209.7 241.7 224 224 224L144 224C135.2 224 128 231.2 128 240L128 496C128 504.8 135.2 512 144 512L400 512C408.8 512 416 504.8 416 496L416 416C416 398.3 430.3 384 448 384C465.7 384 480 398.3 480 416L480 496C480 540.2 444.2 576 400 576L144 576C99.8 576 64 540.2 64 496L64 240z"
-              /></svg
-            >
-          </a>
-        </div>
-        <p>to:</p>
-        <p class="font-suse-mono">oklch(0.1 {chroma} {hue})</p>
-        <div class="flex flex-row">
-          <button
-            onclick={() => copyToClipboard(`oklch(0.1 ${chroma} ${hue}deg)`)}
-          >
-            <svg
-              class="svgIcon cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 640"
-              ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-                d="M480 400L288 400C279.2 400 272 392.8 272 384L272 128C272 119.2 279.2 112 288 112L421.5 112C425.7 112 429.8 113.7 432.8 116.7L491.3 175.2C494.3 178.2 496 182.3 496 186.5L496 384C496 392.8 488.8 400 480 400zM288 448L480 448C515.3 448 544 419.3 544 384L544 186.5C544 169.5 537.3 153.2 525.3 141.2L466.7 82.7C454.7 70.7 438.5 64 421.5 64L288 64C252.7 64 224 92.7 224 128L224 384C224 419.3 252.7 448 288 448zM160 192C124.7 192 96 220.7 96 256L96 512C96 547.3 124.7 576 160 576L352 576C387.3 576 416 547.3 416 512L416 496L368 496L368 512C368 520.8 360.8 528 352 528L160 528C151.2 528 144 520.8 144 512L144 256C144 247.2 151.2 240 160 240L176 240L176 192L160 192z"
-              /></svg
-            >
-          </button>
-          <a href="https://oklch.com/#0.1,{chroma},{hue},100" target="_blank">
-            <svg
-              class="svgIcon cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 640 640"
-              ><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path
-                d="M354.4 83.8C359.4 71.8 371.1 64 384 64L544 64C561.7 64 576 78.3 576 96L576 256C576 268.9 568.2 280.6 556.2 285.6C544.2 290.6 530.5 287.8 521.3 278.7L464 221.3L310.6 374.6C298.1 387.1 277.8 387.1 265.3 374.6C252.8 362.1 252.8 341.8 265.3 329.3L418.7 176L361.4 118.6C352.2 109.4 349.5 95.7 354.5 83.7zM64 240C64 195.8 99.8 160 144 160L224 160C241.7 160 256 174.3 256 192C256 209.7 241.7 224 224 224L144 224C135.2 224 128 231.2 128 240L128 496C128 504.8 135.2 512 144 512L400 512C408.8 512 416 504.8 416 496L416 416C416 398.3 430.3 384 448 384C465.7 384 480 398.3 480 416L480 496C480 540.2 444.2 576 400 576L144 576C99.8 576 64 540.2 64 496L64 240z"
-              /></svg
-            >
-          </a>
-        </div>
-      </div>
-    </div>
-  {/if}
-</div>
-
 <style>
   @keyframes fadeIn {
     0% {
@@ -304,7 +172,6 @@
     opacity: 1;
     transition: opacity 150ms;
   }
-
   @media (max-height: 640px) {
     .main.hidden-short {
       opacity: 0;

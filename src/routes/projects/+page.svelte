@@ -6,7 +6,7 @@
   <div
     class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
-    <h1 class="font-bold p-3 text-2xl text-center">major</h1>
+    <h1 class="font-bold p-3 text-3xl text-center">major</h1>
     <hr class="w-full text-white/30" />
     <div class="p-3">
       <i class="opacity-50 text-center w-full">nothing here yet :(</i>
@@ -15,7 +15,7 @@
   <div
     class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
-    <h1 class="font-bold p-3 text-2xl text-center">minor</h1>
+    <h1 class="font-bold p-3 text-3xl text-center">minor</h1>
     <hr class="w-full text-white/30" />
     <div
       class="p-3 grid sm:grid-cols-2 grid-cols-1 gap-3 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
