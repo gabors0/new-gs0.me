@@ -2,7 +2,9 @@
   import Project from "$lib/Project.svelte";
 </script>
 
-<div class="flex flex-col gap-5 pt-[100px] pb-5 mx-auto fadeIn max-w-4xl">
+<div
+  class="flex flex-col gap-5 pt-[100px] pb-5 mx-5 md:mx-auto fadeIn max-w-3xl"
+>
   <div
     class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
