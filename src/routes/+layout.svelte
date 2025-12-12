@@ -232,7 +232,7 @@
         >
           <p>from:</p>
           <p class="font-suse-mono">oklch(0.25 {chroma} {hue})</p>
-          <div class="flex flex-row">
+          <div class="flex flex-row items-center">
             <button
               onclick={() => copyToClipboard(`oklch(0.25 ${chroma} ${hue}deg)`)}
             >
@@ -261,7 +261,7 @@
           </div>
           <p>to:</p>
           <p class="font-suse-mono">oklch(0.1 {chroma} {hue})</p>
-          <div class="flex flex-row">
+          <div class="flex flex-row items-center">
             <button
               onclick={() => copyToClipboard(`oklch(0.1 ${chroma} ${hue}deg)`)}
             >
