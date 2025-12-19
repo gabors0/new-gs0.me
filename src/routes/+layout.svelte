@@ -17,7 +17,7 @@
         });
     });
 
-    // Generate a hue during SSR so the initial HTML/CSS contains the color
+    // generate a hue during SSR so the initial HTML/CSS contains the color
     let ssrHue: number | null = $state(null);
     let ssrChroma: number | null = $state(null);
 
@@ -55,6 +55,15 @@
             computedStyle.getPropertyValue("--hue").replace("deg", ""),
         );
         chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
+    });
+
+    // update meta theme-color when colors change
+    $effect(() => {
+        const themeColor = `oklch(0.4 ${chroma} ${hue}deg)`;
+        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', themeColor);
+        }
     });
 
     // keybinds
@@ -116,14 +125,36 @@
 
     // dynamic favicon
     let faviconUrl = $derived(
-        `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle r="16" cx="16" cy="16" fill="oklch(0.4 ${chroma} ${hue}deg)"/></svg>`)}`,
+        `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle r="16" cx="16" cy="16" fill="oklch(0.55 ${chroma} ${hue}deg)"/></svg>`)}`,
     );
 </script>
 
 <svelte:head>
     <link rel="icon" href={faviconUrl} />
+    
+    <!-- meta tags -->
     <title>gabors0</title>
-
+    <meta name="title" content="gabors0" />
+    <meta name="description" content="about" />
+    <meta name="author" content="gabors0" />
+    <meta name="keywords" content="gabors0, about, website" />
+    <meta name="theme-color" content="oklch(0.1 ${chroma} ${hue}deg)" />
+    
+    <!-- open graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gs0.me/" />
+    <meta property="og:title" content="gabors0" />
+    <meta property="og:description" content="about" />
+    <meta property="og:image" content="https://gs0.me/card.webp" />
+    <meta property="og:site_name" content="gabors0 - about">
+    
+    <!-- xitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://gs0.me/" />
+    <meta property="twitter:title" content="gabors0" />
+    <meta property="twitter:description" content="about" />
+    <meta property="twitter:image" content="https://gs0.me/card.webp" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         rel="preconnect"
