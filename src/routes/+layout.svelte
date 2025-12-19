@@ -17,7 +17,7 @@
         });
     });
 
-    // Generate a hue during SSR so the initial HTML/CSS contains the color
+    // generate a hue during SSR so the initial HTML/CSS contains the color
     let ssrHue: number | null = $state(null);
     let ssrChroma: number | null = $state(null);
 
@@ -57,7 +57,7 @@
         chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
     });
 
-    // Update meta theme-color when colors change
+    // update meta theme-color when colors change
     $effect(() => {
         const themeColor = `oklch(0.4 ${chroma} ${hue}deg)`;
         const metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -145,14 +145,15 @@
     <meta property="og:url" content="https://gs0.me/" />
     <meta property="og:title" content="gabors0" />
     <meta property="og:description" content="about" />
-    <meta property="og:image" content="https://new-gs0-me-git-dev-gabors0s-projects.vercel.app/card.webp" />
+    <meta property="og:image" content="https://gs0.me/card.webp" />
+    <meta property="og:site_name" content="gabors0 - about">
     
     <!-- xitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://gs0.me/" />
     <meta property="twitter:title" content="gabors0" />
     <meta property="twitter:description" content="about" />
-    <meta property="twitter:image" content="https://new-gs0-me-git-dev-gabors0s-projects.vercel.app/card.webp" />
+    <meta property="twitter:image" content="https://gs0.me/card.webp" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
