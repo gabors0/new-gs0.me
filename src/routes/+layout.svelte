@@ -145,14 +145,14 @@
     <meta property="og:url" content="https://gs0.me/" />
     <meta property="og:title" content="gabors0" />
     <meta property="og:description" content="about" />
-    <meta property="og:image" content="/card.webp" />
+    <meta property="og:image" content="https://new-gs0-me-git-dev-gabors0s-projects.vercel.app/card.webp" />
     
     <!-- xitter -->
-    <meta property="twitter:card" content="/card.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://gs0.me/" />
     <meta property="twitter:title" content="gabors0" />
     <meta property="twitter:description" content="about" />
-    <meta property="twitter:image" content="/card.webp" />
+    <meta property="twitter:image" content="https://new-gs0-me-git-dev-gabors0s-projects.vercel.app/card.webp" />
     
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
