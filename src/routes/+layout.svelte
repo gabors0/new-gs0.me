@@ -154,18 +154,7 @@
     <meta property="twitter:title" content="gabors0" />
     <meta property="twitter:description" content="about" />
     <meta property="twitter:image" content="https://gs0.me/card.webp" />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin="anonymous"
-    />
-    <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=SUSE+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-        rel="stylesheet"
-    />
-
+            
     {#if ssrHue !== null || ssrChroma !== null}
         <style>
             :root {
@@ -247,7 +236,6 @@
             <span class="text-white/50 select-none">•</span>
             <button
                 class="cursor-pointer text-white/50 hover:text-white hover:*:text-white transition-colors duration-200"
-                aria-label="color info"
                 title="color info"
                 onclick={() => {
                     statsVisible.update((v) => !v);
@@ -279,6 +267,7 @@
                     <p class="font-suse-mono">oklch(0.25 {chroma} {hue})</p>
                     <div class="flex flex-row items-center">
                         <button
+                            aria-label="copy lighter color to clipboard"
                             onclick={() =>
                                 copyToClipboard(
                                     `oklch(0.25 ${chroma} ${hue}deg)`,
@@ -311,6 +300,7 @@
                     <p class="font-suse-mono">oklch(0.1 {chroma} {hue})</p>
                     <div class="flex flex-row items-center">
                         <button
+                            aria-label="copy darker color to clipboard"
                             onclick={() =>
                                 copyToClipboard(
                                     `oklch(0.1 ${chroma} ${hue}deg)`,
