@@ -10,7 +10,7 @@
   >
     <h1 class="font-bold p-3 text-2xl text-center">about me</h1>
     <hr class="w-full text-white/30" />
-    <div class="p-8 opacity-70 text-lg font-apfel ">
+    <div class="p-8 opacity-70 text-lg font-apfel tracking-wide">
       <p>
         I'm a 17 year old mostly self-taught student/developer from Hungary,
         currently I'm mainly learning frontend since I love UI design.
