@@ -57,13 +57,6 @@
         }
     });
 
-    // close menu when leaving index
-    $effect(() => {
-        if (page.url.pathname !== "/") {
-            statsVisible.set(false);
-        }
-    });
-
     // keybinds
     onMount(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
