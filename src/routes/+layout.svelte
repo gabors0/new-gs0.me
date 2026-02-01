@@ -24,9 +24,10 @@
     if (!browser) {
         ssrHue = Math.floor(Math.random() * 361);
         ssrChroma = parseFloat((Math.random() * 0.1).toFixed(3));
-        setContext('hue', () => ssrHue);
-        setContext('chroma', () => ssrChroma);
     }
+
+    setContext('getHue', () => hue);
+    setContext('getChroma', () => chroma);
 
     function setHueSmoothly(newHue: number) {
         const root = document.documentElement;

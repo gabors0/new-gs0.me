@@ -5,21 +5,14 @@
   import { slide } from "svelte/transition";
   import { spotlight } from "$lib/actions/spotlight.js";
 
-  //colors menu
-  let areStatsVisible = $state(false);
-  let hue = $state(getContext("hue"));
-  let chroma = $state(getContext("chroma"));
-  let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
-  let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
-
-  onMount(() => {
-    const root = document.documentElement;
-    const computedStyle = getComputedStyle(root);
-    hue = parseFloat(
-      computedStyle.getPropertyValue("--hue").replace("deg", ""),
-    );
-    chroma = parseFloat(computedStyle.getPropertyValue("--chroma"));
-  });
+   //colors menu
+   let areStatsVisible = $state(false);
+   let getHue = getContext<() => number>("getHue");
+   let getChroma = getContext<() => number>("getChroma");
+   let hue = $derived(getHue());
+   let chroma = $derived(getChroma());
+   let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
+   let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
 
   //clock
   let time = $state("");
@@ -197,6 +190,8 @@
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
 </div>
+
+<!-- colors menu -->
 <div class="fixed bottom-5 left-5 flex justify-end flex-col">
   <div class="flex flex-row gap-x-2">
     <button
@@ -229,7 +224,8 @@
   </div>
   {#if areStatsVisible}
     <div
-      class="bg-black/30 border border-white/30 sm:w-md bg-blend-darken mt-3 mr-5 sm:mr-0"
+      use:spotlight
+      class="spotlight bg-black/30 border border-white/30 sm:w-md bg-blend-darken mt-3 mr-5 sm:mr-0"
       transition:slide={{ duration: 300 }}
     >
       <div class="flex flex-row justify-between items-center">
