@@ -1,12 +1,14 @@
 <script>
   import Project from "$lib/Project.svelte";
+  import { spotlight } from "$lib/actions/spotlight.js";
 </script>
 
 <div
   class="flex flex-col gap-5 pt-[100px] pb-5 mx-5 md:mx-auto fadeIn max-w-3xl"
 >
   <div
-    class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
+    use:spotlight
+    class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
     <h1 class="font-bold p-3 text-3xl text-center">major</h1>
     <hr class="w-full text-white/30" />
@@ -15,7 +17,8 @@
     </div>
   </div>
   <div
-    class="bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
+    use:spotlight
+    class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
     <h1 class="font-bold p-3 text-3xl text-center">minor</h1>
     <hr class="w-full text-white/30" />

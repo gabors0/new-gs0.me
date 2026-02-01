@@ -7,7 +7,7 @@
     import { dev } from "$app/environment";
     import { setContext } from 'svelte';
     import { injectAnalytics } from "@vercel/analytics/sveltekit";
-
+    import { spotlight } from "$lib/actions/spotlight.js";
 
     let { children } = $props();
 
@@ -44,6 +44,7 @@
 
         root.style.setProperty("--hue", `${newHue}deg`);
     }
+    setContext('setHueSmoothly', setHueSmoothly);
 
     let hue = $state(0);
     let chroma = $state(0.1);
@@ -109,6 +110,8 @@
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text);
     }
+
+    setContext('copyToClipboard', copyToClipboard);
 
     // dynamic favicon
     let faviconUrl = $derived(
@@ -199,9 +202,6 @@
     {@render children()}
 </main>
 
-<!-- colors menu -->
-
-
 <style lang="postcss">
     @reference "../app.css";
     @property --hue {
@@ -254,6 +254,17 @@
         min-height: 100vh;
         min-height: 100dvh;
         position: relative;
+    }
+
+    :global(.spotlight) {
+       	--highlight-color: 255, 255, 255, 0.05;
+        --spotlight-size: 256px;
+
+        background-image: radial-gradient(
+          circle var(--spotlight-size, 0) at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+          rgba(var(--highlight-color)),
+          transparent
+        );
     }
 
     :global(::selection) {

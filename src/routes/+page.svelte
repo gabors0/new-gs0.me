@@ -1,14 +1,16 @@
 <script lang="ts">
-  // @ts-nocheck
-
   import Spinner from "$lib/Spinner.svelte";
   import { onMount } from "svelte";
   import { getContext } from "svelte";
   import { slide } from "svelte/transition";
+  import { spotlight } from "$lib/actions/spotlight.js";
+
   //colors menu
   let areStatsVisible = $state(false);
   let hue = $state(getContext("hue"));
   let chroma = $state(getContext("chroma"));
+  let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
+  let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
 
   onMount(() => {
     const root = document.documentElement;
@@ -71,7 +73,8 @@
 
 <div class="flex flex-col justify-center items-center h-screen fadeIn">
   <div
-    class="relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {areStatsVisible
+    use:spotlight
+    class="spotlight relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {areStatsVisible
       ? 'hidden-short'
       : ''}"
   >
@@ -97,8 +100,12 @@
         gabors0
       </h1>
       <div class="flex flex-row flex-wrap justify-end gap-x-1">
-        <a href="https://github.com/gabors0" aria-label="github" target="_blank"
-          ><svg
+        <a
+          href="https://github.com/gabors0"
+          aria-label="github"
+          target="_blank"
+        >
+          <svg
             class="svgIcon transition-all duration-75 opacity-70 hover:-translate-y-1.5 hover:opacity-100"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 640 640"
@@ -199,7 +206,7 @@
       onclick={() => {
         hue = Math.floor(Math.random() * 361);
         chroma = parseFloat((Math.random() * 0.1).toFixed(3));
-        setHueSmoothly(hue);
+        setHueSmoothly(Number(hue));
         document.documentElement.style.setProperty(
           "--chroma",
           chroma.toString(),
