@@ -51,15 +51,6 @@
     let hue = $state(0);
     let chroma = $state(0.1);
 
-    // update meta theme-color when colors change
-    $effect(() => {
-        const themeColor = `oklch(0.4 ${chroma} ${hue}deg)`;
-        const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', themeColor);
-        }
-    });
-
     // keybinds
     onMount(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
@@ -130,7 +121,7 @@
     <meta name="description" content="about" />
     <meta name="author" content="gabors0" />
     <meta name="keywords" content="gabors0, about, website" />
-    <meta name="theme-color" content="oklch(0.1 ${chroma} ${hue}deg)" />
+    <meta name="theme-color" content="oklch(0.1 0 0deg)" />
 
     <!-- open graph -->
     <meta property="og:type" content="website" />
