@@ -5,14 +5,14 @@
   import { slide } from "svelte/transition";
   import { spotlight } from "$lib/actions/spotlight.js";
 
-   //colors menu
-   let areStatsVisible = $state(false);
-   let getHue = getContext<() => number>("getHue");
-   let getChroma = getContext<() => number>("getChroma");
-   let hue = $derived(getHue());
-   let chroma = $derived(getChroma());
-   let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
-   let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
+  //colors menu
+  let areStatsVisible = $state(false);
+  let getHue = getContext<() => number>("getHue");
+  let getChroma = getContext<() => number>("getChroma");
+  let hue = $derived(getHue());
+  let chroma = $derived(getChroma());
+  let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
+  let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
 
   //clock
   let time = $state("");
@@ -232,7 +232,7 @@
         <h1 class="text-xl font-bold p-4">current colors</h1>
         <a
           href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl"
-          class="p-4 opacity-70 hover:opacity-100 transition-opacity duration-200 hover:underline"
+          class="p-4 flex opacity-70 hover:opacity-100 transition-opacity duration-200 hover:underline"
           target="_blank">about oklch</a
         >
       </div>
@@ -303,7 +303,7 @@
   @keyframes fadeIn {
     0% {
       opacity: 0;
-      transform: scale(0.6);
+      transform: scale(1.2) translateY(20%);
       filter: blur(30px);
     }
     100% {
@@ -314,7 +314,6 @@
   .fadeIn {
     opacity: 0;
     animation: fadeIn 0.6s ease-in-out;
-    animation-delay: 0.1s;
     animation-fill-mode: forwards;
   }
 

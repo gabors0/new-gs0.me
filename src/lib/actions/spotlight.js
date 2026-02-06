@@ -3,6 +3,17 @@ import { mousePosition } from "$lib/stores.js";
 export function spotlight(node) {
   let unsubscribe;
 
+  // Check if device is a touch device (coarse pointer)
+  const isTouchDevice = typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches;
+
+  // Disable the effect on touch devices by setting size to 0
+  if (isTouchDevice) {
+    node.style.setProperty("--spotlight-size", "0");
+    return {
+      destroy() {},
+    };
+  }
+
   function update(mouse) {
     const rect = node.getBoundingClientRect();
 

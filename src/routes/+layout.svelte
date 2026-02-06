@@ -7,11 +7,12 @@
     import { dev } from "$app/environment";
     import { setContext } from 'svelte';
     import { injectAnalytics } from "@vercel/analytics/sveltekit";
-    import { spotlight } from "$lib/actions/spotlight.js";
+    import { resolve } from '$app/paths';
 
     let { children } = $props();
 
     onMount(() => {
+        console.log("%csup", `color: #EE00FF; font-size: x-large`);
         injectAnalytics({
             mode: dev ? "development" : "production",
         });
@@ -79,13 +80,13 @@
 
             switch (event.key.toLowerCase()) {
                 case "i":
-                    goto("/");
+                    goto(resolve("/"));
                     break;
                 case "p":
-                    goto("/projects");
+                    goto(resolve("/projects"));
                     break;
                 case "a":
-                    goto("/about");
+                    goto(resolve("/about"));
                     break;
                 case "r":
                     hue = Math.floor(Math.random() * 361);
@@ -154,52 +155,53 @@
             }
         </style>
     {/if}
-    {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');r.style.setProperty('--chroma',parseFloat((Math.random()*0.1).toFixed(3)));}catch(e){} })();<\/script>`}
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');r.style.setProperty('--chroma',parseFloat((Math.random()*0.1).toFixed(3)));}catch{/* ignore */} })();</script>`}
 </svelte:head>
 
 <header
     class="flex z-99 items-center w-screen absolute top-0 left-0 *:transition-colors *:duration-100"
 >
     <a
-        href="/"
-        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 left-5
-    {page.url.pathname === '/' ? 'text-white/100' : 'text-white/50'}"
+        href={resolve('/')}
+        class="group p-5 cursor-pointer hover:text-white absolute top-4 left-5
+    {page.url.pathname === '/' ? 'text-white' : 'text-white/50'}"
         >/<span
-            class="group-hover:!text-white/100 transition-colors duration-100 {page
+            class="group-hover:text-white! transition-colors duration-100 {page
                 .url.pathname === '/'
-                ? 'text-white/100'
+                ? 'text-white'
                 : 'text-white/75'}">i</span
         >ndex</a
     >
     <a
-        href="/projects"
-        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 left-1/2 -translate-x-1/2 {page
+        href={resolve('/projects')}
+        class="group p-5 cursor-pointer hover:text-white absolute top-4 left-1/2 -translate-x-1/2 {page
             .url.pathname === '/projects'
-            ? 'text-white/100'
+            ? 'text-white'
             : 'text-white/50'}"
         >/<span
-            class="group-hover:!text-white/100 transition-colors duration-100 {page
+            class="group-hover:text-white! transition-colors duration-100 {page
                 .url.pathname === '/projects'
-                ? 'text-white/100'
+                ? 'text-white'
                 : 'text-white/75'}">p</span
         >rojects</a
     >
     <a
-        href="/about"
-        class="group p-5 cursor-pointer hover:text-white/100 absolute top-4 right-5 {page
+        href={resolve('/about')}
+        class="group p-5 cursor-pointer hover:text-white absolute top-4 right-5 {page
             .url.pathname === '/about'
-            ? 'text-white/100'
+            ? 'text-white'
             : 'text-white/50'}"
         >/<span
-            class="group-hover:!text-white/100 transition-colors duration-100 {page
+            class="group-hover:text-white! transition-colors duration-100 {page
                 .url.pathname === '/about'
-                ? 'text-white/100'
+                ? 'text-white'
                 : 'text-white/75'}">a</span
         >bout</a
     >
 </header>
 
-<main>
+<main class="overflow-hidden">
     {@render children()}
 </main>
 
@@ -218,7 +220,7 @@
     }
 
     :global(html) {
-        @apply font-inter font-normal;
+        @apply font-ubuntu font-normal;
         height: 100%;
         background: radial-gradient(
                 at bottom,

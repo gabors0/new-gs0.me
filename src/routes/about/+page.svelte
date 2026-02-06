@@ -1,21 +1,24 @@
 <script>
   import { spotlight } from "$lib/actions/spotlight.js";
-
-  let clicked = false;
+  import Cat from "$lib/Cat.svelte";
 </script>
 
+<svelte:head>
+  <meta name="robots" content="noindex" />
+</svelte:head>
+
 <div
-  class="flex flex-col md:flex-row md:flex-wrap gap-x-5 pt-[100px] pb-5 md:pb-0 mx-5"
+  class="grid grid-cols-1 md:grid-cols-2 grid-rows-[auto_1fr] gap-y-5 md:gap-x-5 pt-[100px] pb-5 md:pb-0 mx-5 min-h-screen"
 >
   <div
     use:spotlight
-    class="spotlight bg-black/30 border border-white/30 bg-blend-darken mb-5 md:mb-0 w-full md:w-[calc(50%-10px)] fadeIn flex flex-col"
+    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fadeIn"
   >
-    <h1 class="font-bold p-3 text-2xl text-center">about me</h1>
+    <h1 class="font-bold p-3 text-2xl text-center text-white/90">about me</h1>
     <hr class="w-full text-white/30" />
-    <div class="p-8 opacity-70 text-lg font-apfel tracking-wide">
+    <div class="p-8 opacity-70 text-lg">
       <p>
-        I'm a 17 year old mostly self-taught student/developer from Hungary,
+        I'm an 18 year old mostly self-taught student/developer from Hungary,
         currently I'm mainly learning frontend since I love UI design.
       </p>
       <br />
@@ -23,33 +26,15 @@
       <br />
       <i>I might also be in desperate need of project ideas</i>
     </div>
-    <div
-      class="p-8 w-full select-none opacity-50 flex-1 flex items-center justify-center"
-    >
-      <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
-      <pre
-        onclick={() => {
-          clicked = true;
-        }}
-        class="font-mono text-xl text-center cursor-pointer"
-        title="cat from https://www.asciiart.eu/animals/cats"
-        aria-hidden="true">
-
-
-{#if clicked}&lt;3{/if}
-
-   |\__/,|   (`\
-  _.|o o  |_   ) )
--(((---(((--------
-            </pre>
-    </div>
+    <Cat />
   </div>
   <div
     use:spotlight
-    class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full md:w-[calc(50%-10px)] fadeIn"
+    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fadeIn"
   >
-    <h1 class="font-bold p-3 text-2xl text-center">about this site</h1>
+    <h1 class="font-bold p-3 text-2xl text-center text-white/90">
+      about this site
+    </h1>
     <hr class="w-full text-white/30" />
     <!--//////////////////-->
     <p class="p-3 text-center text-lg opacity-70">technologies used</p>
@@ -57,7 +42,11 @@
       <div
         class="flex items-center justify-center gap-x-1.5 mx-3 md:w-full text-4xl text-center p-8 border border-white/30"
       >
-        <a href="https://svelte.dev" target="_blank" aria-label="svelte.dev"
+        <a
+          href="https://svelte.dev"
+          target="_blank"
+          aria-label="svelte.dev"
+          class="opacity-70 hover:opacity-100 transition-opacity"
           ><svg
             class="svgIcon transition-transform"
             viewBox="0 0 99 119"
@@ -72,6 +61,7 @@
           href="https://tailwindcss.com/"
           target="_blank"
           aria-label="tailwind css"
+          class="opacity-70 hover:opacity-100 transition-opacity"
           ><svg
             class="svgIcon transition-transform"
             xmlns="http://www.w3.org/2000/svg"
@@ -89,22 +79,35 @@
             ></svg
           ></a
         >
+        <a
+          href="https://vercel.com"
+          target="_blank"
+          aria-label="vercel"
+          class="opacity-70 hover:opacity-100 transition-opacity"
+          ><svg
+            class="svgIcon transition-transform"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 128 128"
+          >
+            <path d="M64.002 8.576 128 119.424H0Zm0 0"></path>
+          </svg>
+        </a>
       </div>
     </div>
     <!--//////////////////-->
     <p class="p-3 text-center text-lg opacity-70">fonts used</p>
-    <div class="flex lg:mb-3 mb-0 lg:flex-row flex-col justify-between">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-0 mx-3">
       <div
-        class="flex items-center justify-center mx-3 lg:w-full text-4xl text-center p-8 border-b-0 lg:border border border-white/30"
+        class="flex items-center justify-center text-4xl text-center p-8 border border-white/30"
       >
         <a
           class="hover:underline"
           target="_blank"
-          href="https://fonts.google.com/specimen/Inter">Inter</a
+          href="https://fonts.google.com/specimen/Ubuntu">Ubuntu</a
         >
       </div>
       <div
-        class="flex items-center justify-center lg:mr-3 lg:ml-0 mx-3 p-8 lg:w-full font-suse-mono text-4xl text-center border-b-0 lg:border border border-white/30"
+        class="flex items-center justify-center font-suse-mono text-4xl text-center p-8 border border-white/30 lg:border-l-0"
       >
         <a
           class="hover:underline"
@@ -112,25 +115,13 @@
           href="https://fonts.google.com/specimen/SUSE+Mono">SUSE Mono</a
         >
       </div>
-    </div>
-    <div class="flex lg:flex-row flex-col justify-between">
       <div
-        class="flex items-center justify-center mx-3 lg:w-full font-segmented text-3xl text-center p-8 border-b-0 lg:border border border-white/30"
+        class="flex items-center justify-center font-segmented text-3xl text-center p-8 border border-white/30 lg:border-l-0"
       >
         <a
           class="hover:underline"
           target="_blank"
           href="https://www.keshikan.net/fonts-e.html">DSEG-7</a
-        >
-      </div>
-      <div
-        class="flex items-center justify-center lg:mr-3 lg:ml-0 mx-3 p-8 lg:w-full font-apfel text-4xl text-center lg:border border border-white/30"
-      >
-        <a
-          class="hover:underline"
-          target="_blank"
-          href="https://www.collletttivo.it/typefaces/apfel-grotezk"
-          >Apfel Grotezk</a
         >
       </div>
     </div>
@@ -150,7 +141,7 @@
     <p class="p-3 text-center text-lg opacity-70">source code</p>
     <div class="flex md:flex-row flex-col justify-between">
       <div
-        class="flex items-center justify-center gap-x-1 mx-3 mb-3 md:w-full text-4xl text-center p-8 border border-white/30"
+        class="flex items-center justify-center gap-x-1 mb-3 mx-3 md:w-full text-4xl text-center p-8 border border-white/30"
       >
         <a
           href="https://github.com/gabors0/new-gs0.me"
@@ -159,6 +150,18 @@
         >
       </div>
     </div>
+  </div>
+  <div
+    class="fadeIn md:col-span-2 pb-4 lg:pb-0 flex h-full items-center justify-center"
+  >
+    <!-- figlet/mini -->
+    <pre
+      class="opacity-80 select-none text-[10px] sm:text-[12px] xl:text-[16px] leading-2.5 sm:leading-3 xl:leading-4">
+                                _
+|_ _|_ _|_ ._   _ o  / / _   _ / \   ._ _   _   /
+| | |_  |_ |_) _> o / / (_| _> \_/ o | | | (/_ /
+           |             _|
+</pre>
   </div>
 </div>
 
@@ -180,9 +183,6 @@
       oklch(0.3 0.12 330) 91.67%,
       oklch(0.3 0.12 360) 100%
     );
-  }
-  svg:hover {
-    transform: translateY(-5px);
   }
   @keyframes fadeIn {
     0% {

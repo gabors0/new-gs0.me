@@ -1,45 +1,16 @@
 @import "tailwindcss";
 
-/*inter*/
+/*ubuntu*/
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-regular.woff2");
+  font-family: "Ubuntu";
+  src: url("/fonts/ubuntu-v21-latin-regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
-
 @font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-300.woff2");
-  font-weight: 300;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-700.woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-italic.woff2");
+  font-family: "Ubuntu";
+  src: url("/fonts/ubuntu-v21-latin-italic.woff2") format("woff2");
   font-weight: normal;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-300italic.woff2");
-  font-weight: 300;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("/fonts/inter-v20-latin-700italic.woff2");
-  font-weight: 700;
   font-style: italic;
 }
 
@@ -82,7 +53,7 @@
 }
 
 @theme {
-  --font-inter: "Inter", system-ui, -apple-system, BlinkMacSystemFont,
+  --font-ubuntu: "Ubuntu", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", sans-serif;
   --font-suse-mono: "SUSE Mono", monospace, sans-serif;
   --font-segmented: "DSEG7 Modern", monospace;
