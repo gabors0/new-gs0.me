@@ -12,7 +12,7 @@
 >
   <div
     use:spotlight
-    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fadeIn"
+    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fade-left"
   >
     <h1 class="font-bold p-3 text-2xl text-center text-white/90">about me</h1>
     <hr class="w-full text-white/30" />
@@ -30,7 +30,7 @@
   </div>
   <div
     use:spotlight
-    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fadeIn"
+    class="spotlight flex flex-col bg-black/30 border border-white/30 bg-blend-darken fade-right"
   >
     <h1 class="font-bold p-3 text-2xl text-center text-white/90">
       about this site
@@ -184,17 +184,36 @@
       oklch(0.3 0.12 360) 100%
     );
   }
-  @keyframes fadeIn {
-    0% {
+  @keyframes fadeSplit {
+    from {
       opacity: 0;
-      transform: translateY(50px);
-      filter: blur(10px);
+      transform: scale(0.98);
+      filter: brightness(1.3);
     }
-    100% {
+    to {
       opacity: 1;
+      transform: scale(1);
+      filter: brightness(1);
     }
   }
-  .fadeIn {
-    animation: fadeIn 0.35s ease-in-out;
+
+  .fade-left {
+    transform-origin: center right;
+    animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform, filter;
+  }
+
+  .fade-right {
+    transform-origin: center left;
+    animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    will-change: opacity, transform, filter;
+  }
+
+  @media (max-width: 768px) {
+    .fade-left,
+    .fade-right {
+      transform-origin: center;
+      animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
   }
 </style>

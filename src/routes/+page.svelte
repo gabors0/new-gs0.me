@@ -64,7 +64,7 @@
   });
 </script>
 
-<div class="flex flex-col justify-center items-center h-screen fadeIn">
+<div class="flex flex-col justify-center items-center h-screen fade-main">
   <div
     use:spotlight
     class="spotlight relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {areStatsVisible
@@ -300,21 +300,22 @@
 </div>
 
 <style>
-  @keyframes fadeIn {
-    0% {
+  @keyframes fadeMain {
+    from {
       opacity: 0;
-      transform: scale(1.2) translateY(20%);
-      filter: blur(30px);
+      transform: translateY(24px) scale(0.98);
+      filter: blur(4px) brightness(3);
     }
-    100% {
+    to {
       opacity: 1;
-      transform: none;
+      transform: translateY(0) scale(1);
+      filter: blur(0) brightness(1);
     }
   }
-  .fadeIn {
-    opacity: 0;
-    animation: fadeIn 0.6s ease-in-out;
-    animation-fill-mode: forwards;
+
+  .fade-main {
+    animation: fadeMain 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    will-change: opacity, transform, filter;
   }
 
   /*tailwind of this didnt work on webkit for some reason*/

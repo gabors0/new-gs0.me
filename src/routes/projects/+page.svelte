@@ -8,7 +8,7 @@
 </svelte:head>
 
 <div
-  class="flex flex-col gap-5 pt-[100px] pb-5 mx-5 md:mx-auto fadeIn max-w-3xl"
+  class="flex flex-col gap-5 pt-[100px] pb-5 mx-5 md:mx-auto fade-center max-w-3xl"
 >
   <div
     use:spotlight
@@ -41,17 +41,21 @@
 </div>
 
 <style>
-  @keyframes fadeIn {
-    0% {
+  @keyframes fadeCenter {
+    from {
       opacity: 0;
-      transform: translateY(50px);
-      filter: blur(10px);
+      transform: translateY(20px) scale(0.96);
+      filter: brightness(1.4);
     }
-    100% {
+    to {
       opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: brightness(1);
     }
   }
-  .fadeIn {
-    animation: fadeIn 0.35s ease-in-out;
+
+  .fade-center {
+    animation: fadeCenter 1.3s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    will-change: opacity, transform, filter;
   }
 </style>
