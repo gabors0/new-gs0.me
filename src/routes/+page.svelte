@@ -1,9 +1,18 @@
 <script lang="ts">
-  import Spinner from "$lib/Spinner.svelte";
   import { onMount } from "svelte";
   import { getContext } from "svelte";
   import { slide } from "svelte/transition";
+  import { tweened } from "svelte/motion";
+  import { cubicOut } from "svelte/easing";
   import { spotlight } from "$lib/actions/spotlight.js";
+
+  let { data } = $props();
+
+  // Animated view counter
+  const animatedViews = tweened(0, {
+    duration: 1500,
+    easing: cubicOut,
+  });
 
   //colors menu
   let areStatsVisible = $state(false);
@@ -31,6 +40,9 @@
   onMount(() => {
     updateTime();
     const interval = setInterval(updateTime, 1000);
+
+    // Start view counter animation
+    animatedViews.set(data.views);
 
     const handleKeyPress = (event: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, or contenteditable element
@@ -185,7 +197,7 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <span><Spinner type="big" /></span>
+      <span>{Math.round($animatedViews)} views</span>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->

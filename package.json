@@ -32,6 +32,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^6.2.0",
+		"@upstash/redis": "^1.36.2",
 		"@vercel/analytics": "^1.6.1",
 		"date-fns": "^4.1.0"
 	}
