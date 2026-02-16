@@ -2,4 +2,4 @@
   export let data;
 </script>
 
-<span>{data.views} views</span>
+<span class="font-suse-mono">{data.views} </span>views

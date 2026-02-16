@@ -41,21 +41,34 @@
 </div>
 
 <style>
-  @keyframes fadeCenter {
-    from {
+  @keyframes fadeCenterTransform {
+    0% {
       opacity: 0;
       transform: translateY(20px) scale(0.96);
-      filter: brightness(1.4);
     }
-    to {
+    80% {
       opacity: 1;
       transform: translateY(0) scale(1);
-      filter: brightness(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes fadeCenterFilter {
+    from {
+      filter: blur(4px) brightness(3);
+    }
+    to {
+      filter: blur(0) brightness(1);
     }
   }
 
   .fade-center {
-    animation: fadeCenter 1.3s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    animation:
+      fadeCenterTransform 1.3s cubic-bezier(0.22, 1, 0.36, 1) 80ms both,
+      fadeCenterFilter 0.5s ease-out 80ms both;
     will-change: opacity, transform, filter;
   }
 </style>

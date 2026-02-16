@@ -184,28 +184,43 @@
       oklch(0.3 0.12 360) 100%
     );
   }
-  @keyframes fadeSplit {
-    from {
+  @keyframes fadeSplitTransform {
+    0% {
       opacity: 0;
       transform: scale(0.98);
-      filter: brightness(1.3);
     }
-    to {
+    80% {
       opacity: 1;
       transform: scale(1);
-      filter: brightness(1);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fadeSplitFilter {
+    from {
+      filter: blur(4px) brightness(3);
+    }
+    to {
+      filter: blur(0) brightness(1);
     }
   }
 
   .fade-left {
     transform-origin: center right;
-    animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation:
+      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+      fadeSplitFilter 0.5s ease-out both;
     will-change: opacity, transform, filter;
   }
 
   .fade-right {
     transform-origin: center left;
-    animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+    animation:
+      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms both,
+      fadeSplitFilter 0.5s ease-out 80ms both;
     will-change: opacity, transform, filter;
   }
 
@@ -213,7 +228,9 @@
     .fade-left,
     .fade-right {
       transform-origin: center;
-      animation: fadeSplit 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation:
+        fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
+        fadeSplitFilter 0.5s ease-out both;
     }
   }
 </style>

@@ -2,14 +2,14 @@
   import { onMount } from "svelte";
   import { getContext } from "svelte";
   import { slide } from "svelte/transition";
-  import { tweened } from "svelte/motion";
+  import { Tween } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
   import { spotlight } from "$lib/actions/spotlight.js";
 
   let { data } = $props();
 
   // Animated view counter
-  const animatedViews = tweened(0, {
+  const animatedViews = new Tween(0, {
     duration: 1500,
     easing: cubicOut,
   });
@@ -197,7 +197,7 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <span>{Math.round($animatedViews)} views</span>
+      <span>{Math.round(animatedViews.current)} views</span>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
@@ -312,21 +312,34 @@
 </div>
 
 <style>
-  @keyframes fadeMain {
-    from {
+  @keyframes fadeMainTransform {
+    0% {
       opacity: 0;
       transform: translateY(24px) scale(0.98);
+    }
+    85% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes fadeMainFilter {
+    from {
       filter: blur(4px) brightness(3);
     }
     to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
       filter: blur(0) brightness(1);
     }
   }
 
   .fade-main {
-    animation: fadeMain 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+    animation:
+      fadeMainTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both,
+      fadeMainFilter 0.5s ease-out 0.2s both;
     will-change: opacity, transform, filter;
   }
 
