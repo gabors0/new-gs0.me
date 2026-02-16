@@ -7,7 +7,6 @@ const redis = new Redis({
 });
 
 export async function load() {
-  // Increment the view counter atomically
   const views = await redis.incr("page_views");
 
   return {

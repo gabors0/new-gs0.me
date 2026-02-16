@@ -2,17 +2,11 @@
   import { onMount } from "svelte";
   import { getContext } from "svelte";
   import { slide } from "svelte/transition";
-  import { Tween } from "svelte/motion";
-  import { cubicOut } from "svelte/easing";
   import { spotlight } from "$lib/actions/spotlight.js";
+  import CounterDigit from "$lib/CounterDigit.svelte";
 
   let { data } = $props();
-
-  // Animated view counter
-  const animatedViews = new Tween(0, {
-    duration: 1500,
-    easing: cubicOut,
-  });
+  let displayedViews = $state(data.views - 1);
 
   //colors menu
   let areStatsVisible = $state(false);
@@ -38,11 +32,12 @@
   }
 
   onMount(() => {
+    requestAnimationFrame(() => {
+      displayedViews = data.views;
+    });
+
     updateTime();
     const interval = setInterval(updateTime, 1000);
-
-    // Start view counter animation
-    animatedViews.set(data.views);
 
     const handleKeyPress = (event: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, or contenteditable element
@@ -74,6 +69,7 @@
       window.removeEventListener("keydown", handleKeyPress);
     };
   });
+  let digits = $derived(String(displayedViews).split(""));
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen fade-main">
@@ -197,7 +193,14 @@
 
     <div class="flex flex-row opacity-50 justify-between items-center">
       <p>Gabor Simon</p>
-      <span>{Math.round(animatedViews.current)} views</span>
+      <div class="flex flex-row items-center gap-1">
+        <span class="flex flex-row items-center mb-0.5">
+          {#each digits as digit, i (digits.length - i)}
+            <CounterDigit {digit} />
+          {/each}
+        </span>
+        <span> views</span>
+      </div>
     </div>
   </div>
   <!-- <hr class="my-3 h-5 opacity-50 w-[80%] mx-5 sm:mx-0 sm:w-xl" /> -->
