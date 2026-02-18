@@ -6,7 +6,20 @@
   import CounterDigit from "$lib/CounterDigit.svelte";
 
   let { data } = $props();
-  let displayedViews = $state(data.views - 1);
+  let displayedViews = $state(data.views);
+
+  let digits = $derived(displayedViews.toString().split(""));
+
+  // Polling effect
+  $effect(() => {
+    const interval = setInterval(async () => {
+      const res = await fetch("/api/views");
+      const json = await res.json();
+      displayedViews = json.views;
+    }, 3000);
+
+    return () => clearInterval(interval);
+  });
 
   //colors menu
   let areStatsVisible = $state(false);
@@ -32,8 +45,10 @@
   }
 
   onMount(() => {
-    requestAnimationFrame(() => {
-      displayedViews = data.views;
+    // Increment the counter when the page mounts
+    fetch("/api/views", { method: "POST" }).then(async (res) => {
+      const json = await res.json();
+      displayedViews = json.views;
     });
 
     updateTime();
@@ -69,7 +84,6 @@
       window.removeEventListener("keydown", handleKeyPress);
     };
   });
-  let digits = $derived(String(displayedViews).split(""));
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen fade-main">
