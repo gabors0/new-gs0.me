@@ -8,6 +8,19 @@
   let { data } = $props();
   let displayedViews = $state(data.views - 1);
 
+  let digits = $derived(displayedViews.toString().split(""));
+
+  // Polling effect
+  $effect(() => {
+    const interval = setInterval(async () => {
+      const res = await fetch("/api/views");
+      const json = await res.json();
+      displayedViews = json.views - 1;
+    }, 3000);
+
+    return () => clearInterval(interval);
+  });
+
   //colors menu
   let areStatsVisible = $state(false);
   let getHue = getContext<() => number>("getHue");
@@ -69,7 +82,6 @@
       window.removeEventListener("keydown", handleKeyPress);
     };
   });
-  let digits = $derived(String(displayedViews).split(""));
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen fade-main">
