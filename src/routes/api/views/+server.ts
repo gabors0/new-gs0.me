@@ -11,3 +11,8 @@ export async function GET() {
   const views = await redis.get<number>("page_views");
   return json({ views: views ?? 0 });
 }
+
+export async function POST() {
+  const views = await redis.incr("page_views");
+  return json({ views });
+}

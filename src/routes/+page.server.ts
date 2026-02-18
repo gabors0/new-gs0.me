@@ -7,9 +7,9 @@ const redis = new Redis({
 });
 
 export async function load() {
-  const views = await redis.incr("page_views");
+  const views = await redis.get<number>("page_views");
 
   return {
-    views,
+    views: views ?? 0,
   };
 }
