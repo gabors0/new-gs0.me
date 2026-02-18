@@ -6,7 +6,7 @@ const redis = new Redis({
   token: KV_REST_API_TOKEN || "",
 });
 
-const RATE_LIMIT_SECONDS = 300; // 5 min
+const RATE_LIMIT_SECONDS = 120; // 2 min
 const SALT = HASH_SALT;
 
 async function hashString(str: string): Promise<string> {
