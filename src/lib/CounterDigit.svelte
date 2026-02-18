@@ -6,7 +6,8 @@
   let height = $state(0);
 </script>
 
-<span class="digit-wrapper font-suse-mono font-bold" bind:clientHeight={height}>
+<span class="digit-wrapper font-suse-mono font-semibold" bind:clientHeight={height}>
+  <span class="baseline-fix" aria-hidden="true">&nbsp;</span>
   {#key digit}
     <span
       class="digit"
@@ -24,12 +25,17 @@
     position: relative;
     overflow: hidden;
     width: 0.65em;
-    height: 1.2em;
-    vertical-align: bottom;
+    vertical-align: baseline;
+  }
+  .baseline-fix {
+    visibility: hidden;
+    display: inline;
+    pointer-events: none;
   }
   .digit {
     display: block;
     position: absolute;
+    inset: 0;
     width: 100%;
     text-align: center;
   }

@@ -31,6 +31,14 @@
 
 @font-face {
   font-family: "SUSE Mono";
+  src: url("/fonts/suse-mono-v1-latin-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "SUSE Mono";
   src: url("/fonts/suse-mono-v1-latin-700.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
