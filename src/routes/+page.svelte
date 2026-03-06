@@ -263,7 +263,7 @@
       <div class="flex flex-row justify-between items-center">
         <h1 class="text-xl font-bold p-4">current colors</h1>
         <a
-          href="https://evilmartians.com/chronicles/oklch-in-css-why-quit-rgb-hsl"
+          href="https://oklch.fyi/"
           class="p-4 flex opacity-70 hover:opacity-100 transition-opacity duration-200 hover:underline"
           target="_blank">about oklch</a
         >

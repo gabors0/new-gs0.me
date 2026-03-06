@@ -152,7 +152,7 @@
     </div>
   </div>
   <div
-    class="fadeIn md:col-span-2 pb-4 lg:pb-0 flex h-full items-center justify-center"
+    class="fadeIn md:col-span-2 pb-4! lg:pb-0 flex h-full items-center justify-center"
   >
     <!-- figlet/mini -->
     <pre
