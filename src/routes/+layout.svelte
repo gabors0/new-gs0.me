@@ -271,7 +271,8 @@
     }
     :global(.svgIcon) {
         fill: white;
-        width: 32px;
-        height: 32px;
+        font-size: 36px;
+        width: 36px;
+        height: 36px;
     }
 </style>

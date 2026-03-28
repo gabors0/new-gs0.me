@@ -96,7 +96,7 @@
     </div>
     <!--//////////////////-->
     <p class="p-3 text-center text-lg opacity-70">fonts used</p>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-0 mx-3">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-0 mx-3 *:text-white/90">
       <div
         class="flex items-center justify-center text-4xl text-center p-8 border border-white/30"
       >
@@ -146,7 +146,7 @@
         <a
           href="https://github.com/gabors0/new-gs0.me"
           target="_blank"
-          class="font-suse-mono text-4xl hover:underline">github</a
+          class="font-suse-mono text-4xl hover:underline text-white/90">github</a
         >
       </div>
     </div>
@@ -156,7 +156,7 @@
   >
     <!-- figlet/mini -->
     <pre
-      class="opacity-80 select-none text-[10px] sm:text-[12px] xl:text-[16px] leading-2.5 sm:leading-3 xl:leading-4">
+      class="opacity-80 select-none text-white/90 text-[10px] sm:text-[12px] xl:text-[16px] leading-2.5 sm:leading-3 xl:leading-4">
                                 _
 |_ _|_ _|_ ._   _ o  / / _   _ / \   ._ _   _   /
 | | |_  |_ |_) _> o / / (_| _> \_/ o | | | (/_ /

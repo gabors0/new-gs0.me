@@ -27,10 +27,19 @@
     <h1 class="font-bold p-4 text-3xl text-center text-white/90">minor</h1>
     <hr class="w-full text-white/30" />
     <div
-      class="p-3 grid sm:grid-cols-2 grid-cols-1 gap-3 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
+      class="p-3 flex flex-col gap-3 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
     >
+      <Project 
+          title="amdecrypt-gui"
+          license="MIT"
+          description="a cross-platform app made to easily install and use AppleMusicDecrypt made by @WorldObservationLog, currently in development"
+          link=""
+      repo="amdecrypt-gui"
+stack="wails,go,svelte,tailwind"
+          />
       <Project
         title="unduck-startpage"
+        license="MIT"
         description="a startpage for theo browne's unduck (duckduckgo's bangs but faster). mostly for browsers that don't allow setting a custom search engine, like the one in the steam overlay"
         link="https://search.gs0.me"
         repo="unduck-startpage"
