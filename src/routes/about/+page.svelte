@@ -19,10 +19,10 @@
     <div class="p-8 opacity-70 text-lg">
       <p>
         I'm an 18 year old mostly self-taught student/developer from Hungary,
-        currently I'm mainly learning frontend since I love UI design.
+        currently mainly learning frontend since I love UI design!
       </p>
       <br />
-      <p>I'm also into photography, audio stuff and I love tinkering.</p>
+      <p>I'm also into cars, photography, audio stuff and I love tinkering.</p>
       <br />
       <i>I might also be in desperate need of project ideas</i>
     </div>

@@ -41,7 +41,7 @@
 </script>
 
 <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-<div class="border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0">
+<div class="bg-blend-darken w-full sm:flex-1 sm:min-w-0">
   <div class="flex flex-row items-center justify-between">
     <div class="flex flex-row items-center">
         <h1 class="font-bold pl-4 pr-2 text-2xl text-white/90">{title}</h1>
