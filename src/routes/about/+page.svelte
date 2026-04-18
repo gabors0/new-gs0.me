@@ -1,6 +1,7 @@
 <script>
   import { spotlight } from "$lib/actions/spotlight.js";
   import Cat from "$lib/Cat.svelte";
+  import SectionTitle from "$lib/SectionTitle.svelte";
 </script>
 
 <svelte:head>
@@ -40,7 +41,7 @@
     <p class="p-3 text-center text-lg opacity-70">technologies used</p>
     <div class="flex md:flex-row flex-col justify-between">
       <div
-        class="flex items-center justify-center gap-x-1.5 mx-3 md:w-full text-4xl text-center p-8 border border-white/30"
+        class="flex items-center justify-center gap-x-1.5 md:w-full text-4xl text-center px-3 pt-3 pb-6"
       >
         <a
           href="https://svelte.dev"
@@ -95,31 +96,29 @@
       </div>
     </div>
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-70">fonts used</p>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-0 lg:gap-0 mx-3 *:text-white/90">
-      <div
-        class="flex items-center justify-center text-4xl text-center p-8 border border-white/30"
-      >
+    <SectionTitle title="fonts used" />
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 p-3 *:text-white/90">
+      <div class="flex items-center justify-center text-4xl text-center">
         <a
-          class="hover:underline"
+          class="hover:underline decoration-2 underline-offset-4"
           target="_blank"
           href="https://fonts.google.com/specimen/Ubuntu">Ubuntu</a
         >
       </div>
       <div
-        class="flex items-center justify-center font-suse-mono text-4xl text-center p-8 border border-white/30 lg:border-l-0"
+        class="flex items-center justify-center font-suse-mono text-4xl text-center"
       >
         <a
-          class="hover:underline"
+          class="hover:underline decoration-2 underline-offset-4"
           target="_blank"
           href="https://fonts.google.com/specimen/SUSE+Mono">SUSE Mono</a
         >
       </div>
       <div
-        class="flex items-center justify-center font-segmented text-3xl text-center p-8 border border-white/30 lg:border-l-0"
+        class="flex items-center justify-center font-segmented text-3xl text-center"
       >
         <a
-          class="hover:underline"
+          class="hover:underline decoration-2 underline-offset-4"
           target="_blank"
           href="https://www.keshikan.net/fonts-e.html">DSEG-7</a
         >
@@ -127,10 +126,10 @@
     </div>
 
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-70">colors used</p>
+    <SectionTitle title="colors used" />
     <div class="flex md:flex-row flex-col justify-between">
       <div
-        class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 mx-3 md:w-full text-4xl text-center p-8 border border-white/30"
+        class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 md:w-full text-4xl text-center p-3"
       >
         <span class="bg-white text-black">#ffffff</span>
         <span class="bg-black text-white">#000000</span>
@@ -138,15 +137,16 @@
       </div>
     </div>
     <!--//////////////////-->
-    <p class="p-3 text-center text-lg opacity-70">source code</p>
+    <SectionTitle title="source code" />
     <div class="flex md:flex-row flex-col justify-between">
       <div
-        class="flex items-center justify-center gap-x-1 mb-3 mx-3 md:w-full text-4xl text-center p-8 border border-white/30"
+        class="flex items-center justify-center gap-x-1 md:w-full text-4xl text-center px-3 pt-3 pb-9"
       >
         <a
           href="https://github.com/gabors0/new-gs0.me"
           target="_blank"
-          class="font-suse-mono text-4xl hover:underline text-white/90">github</a
+          class="font-suse-mono text-4xl hover:underline decoration-2 underline-offset-4 text-white/90"
+          >github</a
         >
       </div>
     </div>
