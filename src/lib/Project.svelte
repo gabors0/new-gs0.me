@@ -2,14 +2,33 @@
   import { onMount } from "svelte";
   import { formatDistance } from "date-fns";
   import Spinner from "./Spinner.svelte";
-  export let title: string;
-  export let license: string;
-  export let description: string;
-  export let link: string;
-  export let repo: string;
-  export let stack: string;
 
-  const stackIcons = {
+  type ProjectProps = {
+    title: string;
+    license: string;
+    description: string;
+    link?: string;
+    repo?: string;
+    stack: string;
+  };
+
+  type StackIcon = {
+    href: string;
+    title: string;
+    path?: string;
+    iconClass?: string;
+  };
+
+  let {
+    title,
+    license,
+    description,
+    link = "",
+    repo = "",
+    stack,
+  }: ProjectProps = $props();
+
+  const stackIcons: Record<string, StackIcon> = {
     wails: {
       href: "https://wails.io/",
       title: "wails",
@@ -37,18 +56,18 @@
     },
   };
 
-  $: stackItems = stack
+  let stackItems = $derived(stack
     .split(",")
     .map((s) => stackIcons[s.trim()])
-    .filter(Boolean);
+    .filter((item): item is StackIcon => Boolean(item)));
 
-  let commitDate = null;
-  let error = null;
-  let formattedDate = null;
+  let commitDate = $state<string | null>(null);
+  let error = $state<string | null>(null);
 
-  $: formattedDate = commitDate
+  let formattedDate = $derived(commitDate
     ? formatDistance(new Date(commitDate), new Date())
-    : null;
+    : null);
+
   onMount(async () => {
     if (repo !== "") {
       try {
@@ -57,15 +76,20 @@
         );
         if (!branchRes.ok)
           throw new Error(`Branch fetch failed: ${branchRes.status}`);
-        const branchData = await branchRes.json();
-        const commitUrl = branchData.commit.url;
+        const branchData: { commit?: { url?: string } } =
+          await branchRes.json();
+        const commitUrl = branchData.commit?.url;
+        if (!commitUrl) throw new Error("Branch response missing commit URL");
         const commitRes = await fetch(commitUrl);
         if (!commitRes.ok)
           throw new Error(`Commit fetch failed: ${commitRes.status}`);
-        const commitData = await commitRes.json();
-        commitDate = commitData.commit.author.date;
+        const commitData: { commit?: { author?: { date?: string } } } =
+          await commitRes.json();
+        const date = commitData.commit?.author?.date;
+        if (!date) throw new Error("Commit response missing author date");
+        commitDate = date;
       } catch (e) {
-        error = e.message;
+        error = e instanceof Error ? e.message : "Failed to load commit date";
       }
     }
   });

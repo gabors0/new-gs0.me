@@ -6,7 +6,8 @@
   import CounterDigit from "$lib/CounterDigit.svelte";
 
   let { data } = $props();
-  let displayedViews = $derived(data.views);
+  let polledViews = $state<number | null>(null);
+  let displayedViews = $derived(polledViews ?? data.views);
 
   let digits = $derived(displayedViews.toString().split(""));
 
@@ -15,7 +16,7 @@
     const interval = setInterval(async () => {
       const res = await fetch("/api/views");
       const json = await res.json();
-      displayedViews = json.views;
+      polledViews = json.views;
     }, 3000);
 
     return () => clearInterval(interval);
@@ -75,7 +76,7 @@
     // Increment the counter when the page mounts
     fetch("/api/views", { method: "POST" }).then(async (res) => {
       const json = await res.json();
-      displayedViews = json.views;
+      polledViews = json.views;
     });
 
     updateTime();

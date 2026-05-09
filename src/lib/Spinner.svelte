@@ -1,31 +1,33 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  export let type = "small";
-  let frames: string[];
 
-  if (type === "big") {
-    frames = [
-      "[ ●    ]",
-      "[  ●   ]",
-      "[   ●  ]",
-      "[    ● ]",
-      "[     ●]",
-      "[    ● ]",
-      "[   ●  ]",
-      "[  ●   ]",
-      "[ ●    ]",
-      "[●     ]",
-    ];
-  } else if (type === "classic") {
-    frames = ["|", "╱", "—", "╲", "|", "╱", "—", "╲"];
-  } else frames = ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"];
+  let { type = "small" }: { type?: string } = $props();
 
-  let index = 0;
-  let displayFrame = frames[0];
+  let frames = $derived(
+    type === "big"
+      ? [
+          "[ ●    ]",
+          "[  ●   ]",
+          "[   ●  ]",
+          "[    ● ]",
+          "[     ●]",
+          "[    ● ]",
+          "[   ●  ]",
+          "[  ●   ]",
+          "[ ●    ]",
+          "[●     ]",
+        ]
+      : type === "classic"
+        ? ["|", "╱", "—", "╲", "|", "╱", "—", "╲"]
+        : ["⣾", "⣽", "⣻", "⢿", "⡿", "⣟", "⣯", "⣷"],
+  );
+
+  let index = $state(0);
+  let displayFrame = $derived(frames[index % frames.length]);
+
   onMount(() => {
     const interval = setInterval(() => {
       index = (index + 1) % frames.length;
-      displayFrame = frames[index];
     }, 150);
     return () => clearInterval(interval);
   });

@@ -1,22 +1,30 @@
 <script lang="ts">
-  let sleeping = true;
-  let index = 0;
-  let direction = 1;
-  let snoreString = "zzz";
+  import { onMount } from "svelte";
 
-  $: animated = snoreString
+  let sleeping = $state(true);
+  let index = $state(0);
+  let direction = $state(1);
+  const snoreString = "zzz";
+
+  let animated = $derived(snoreString
     .split("")
     .map((c, i) => (i === index ? "Z" : "z"))
-    .join("");
+    .join(""));
 
-  function animate() {
-    if (!sleeping) return;
-    index += direction;
-    if (index >= 2 || index <= 0) direction *= -1;
-    setTimeout(animate, 750);
-  }
+  onMount(() => {
+    let timeout: ReturnType<typeof setTimeout>;
 
-  animate();
+    function animate() {
+      if (!sleeping) return;
+      index += direction;
+      if (index >= 2 || index <= 0) direction *= -1;
+      timeout = setTimeout(animate, 750);
+    }
+
+    animate();
+
+    return () => clearTimeout(timeout);
+  });
 </script>
 
 <div

@@ -1,6 +1,5 @@
 <script lang="ts">
 	type Position = 'top' | 'bottom' | 'left' | 'right';
-	type Feature = 'link' | 'copybtn';
 
 	let {
 		text,
