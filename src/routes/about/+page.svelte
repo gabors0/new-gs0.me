@@ -1,7 +1,66 @@
-<script>
+<script lang="ts">
+  import { onMount } from "svelte";
   import { spotlight } from "$lib/actions/spotlight.js";
   import Cat from "$lib/Cat.svelte";
   import SectionTitle from "$lib/SectionTitle.svelte";
+  import Spinner from "$lib/Spinner.svelte";
+
+  const commitsUrl =
+    "https://api.github.com/repos/gabors0/new-gs0.me/commits?per_page=1";
+
+  type GitHubCommit = {
+    sha: string;
+  };
+
+  type RepoMetadata = {
+    latestCommitShortHash: string;
+    totalCommits: number;
+  };
+
+  function getTotalCommits(linkHeader: string | null, returnedCommits: number) {
+    if (!linkHeader) {
+      return returnedCommits;
+    }
+
+    const match = linkHeader.match(/[?&]page=(\d+)>;\s*rel="last"/);
+    return match ? Number(match[1]) : returnedCommits;
+  }
+
+  let repo = $state<RepoMetadata | null>(null);
+  let repoError = $state<string | null>(null);
+
+  onMount(async () => {
+    try {
+      const response = await fetch(commitsUrl, {
+        headers: {
+          Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`GitHub API responded with ${response.status}`);
+      }
+
+      const commits = (await response.json()) as GitHubCommit[];
+      const latestCommit = commits[0];
+
+      if (!latestCommit) {
+        throw new Error("GitHub API returned no commits");
+      }
+
+      repo = {
+        latestCommitShortHash: latestCommit.sha.slice(0, 7),
+        totalCommits: getTotalCommits(
+          response.headers.get("link"),
+          commits.length,
+        ),
+      };
+    } catch (error) {
+      repoError =
+        error instanceof Error ? error.message : "Failed to load repo metadata";
+    }
+  });
 </script>
 
 <svelte:head>
@@ -9,7 +68,7 @@
 </svelte:head>
 
 <div
-  class="grid grid-cols-1 md:grid-cols-2 grid-rows-[auto_1fr] gap-y-5 md:gap-x-5 pt-[100px] pb-5 md:pb-0 mx-5 min-h-screen"
+  class="grid grid-cols-1 md:grid-cols-2 grid-rows-[auto_1fr] gap-y-5 md:gap-x-5 pt-25 md:pb-0 mx-5 min-h-screen"
 >
   <div
     use:spotlight
@@ -145,23 +204,34 @@
         <a
           href="https://github.com/gabors0/new-gs0.me"
           target="_blank"
-          class="font-suse-mono text-4xl hover:underline decoration-2 underline-offset-4 text-white/90"
+          class="text-4xl hover:underline decoration-2 underline-offset-4 text-white/90"
           >github</a
         >
       </div>
     </div>
   </div>
   <div
-    class="fade-ascii md:col-span-2 pb-4! lg:pb-0 flex h-full items-center justify-center"
+    class="fade-ascii md:col-span-2 pb-4! lg:pb-0 flex h-full items-center justify-center text-white/30 text-sm sm:text-base"
   >
-    <!-- figlet/mini -->
-    <pre
-      class="opacity-80 select-none text-white/90 text-[10px] sm:text-[12px] xl:text-[16px] leading-2.5 sm:leading-3 xl:leading-4">
-                                _
-|_ _|_ _|_ ._   _ o  / / _   _ / \   ._ _   _   /
-| | |_  |_ |_) _> o / / (_| _> \_/ o | | | (/_ /
-           |             _|
-</pre>
+    {#if repo}
+      <div
+        class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-3"
+      >
+        <span>build {repo.totalCommits}</span>
+        <span>|</span>
+        <a
+          href={`https://github.com/gabors0/new-gs0.me/commit/${repo.latestCommitShortHash}`}
+          target="_blank"
+          class="font-suse-mono text-white/30 hover:text-white/90 hover:underline decoration-2 underline-offset-4 transition-colors"
+        >
+          {repo.latestCommitShortHash}
+        </a>
+      </div>
+    {:else if repoError}
+      <span>{repoError}</span>
+    {:else}
+      <Spinner type="classic" />
+    {/if}
   </div>
 </div>
 
