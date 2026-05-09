@@ -148,7 +148,6 @@
             href="mailto:gabors0@proton.me"
             aria-label="send an email"
             target="_blank"
-            title="gabors0@proton.me"
             ><svg
               class="svgIcon transition-all duration-75 opacity-70 hover:-translate-y-1.5 hover:opacity-100"
               xmlns="http://www.w3.org/2000/svg"

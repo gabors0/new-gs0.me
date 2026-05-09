@@ -1,10 +1,20 @@
 <script lang="ts">
-    export let text: string;
-    export let position: 'top' | 'bottom' | 'left' | 'right' = 'top';
+	type Position = 'top' | 'bottom' | 'left' | 'right';
+	type Feature = 'link' | 'copybtn';
+
+	let {
+		text,
+		position = 'top',
+		children
+	}: {
+		text: string;
+		position?: Position;
+		children: import('svelte').Snippet;
+	} = $props();
 </script>
 
 <div class="popup-wrapper relative inline-block">
-    <slot />
+    {@render children()}
     <div
         class="popup pointer-events-none absolute z-99 px-2 py-1 text-sm
                bg-black/50 border border-white/30 text-white/70
