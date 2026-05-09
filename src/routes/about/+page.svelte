@@ -152,7 +152,7 @@
     </div>
   </div>
   <div
-    class="fadeIn md:col-span-2 pb-4! lg:pb-0 flex h-full items-center justify-center"
+    class="fade-ascii md:col-span-2 pb-4! lg:pb-0 flex h-full items-center justify-center"
   >
     <!-- figlet/mini -->
     <pre
@@ -221,6 +221,29 @@
     animation:
       fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms both,
       fadeSplitFilter 0.5s ease-out 80ms both;
+    will-change: opacity, transform, filter;
+  }
+
+  @keyframes fadeAsciiTransform {
+    0% {
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+    }
+    80% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .fade-ascii {
+    transform-origin: center top;
+    animation:
+      fadeAsciiTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 160ms both,
+      fadeSplitFilter 0.5s ease-out 160ms both;
     will-change: opacity, transform, filter;
   }
 
