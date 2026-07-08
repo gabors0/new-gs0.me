@@ -2,7 +2,7 @@
     import "../app.css";
     import { browser } from "$app/environment";
     import { page } from "$app/state";
-    import { goto } from "$app/navigation";
+    import { goto, onNavigate } from "$app/navigation";
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
     import { setContext } from 'svelte';
@@ -15,6 +15,28 @@
         console.log("%csup", `color: #EE00FF; font-size: x-large`);
         injectAnalytics({
             mode: dev ? "development" : "production",
+        });
+    });
+
+    onNavigate((navigation) => {
+        if (
+            !document.startViewTransition ||
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+            return;
+        }
+
+        document.documentElement.classList.add("view-transitioning");
+
+        return new Promise<void>((resolve) => {
+            const transition = document.startViewTransition(async () => {
+                resolve();
+                await navigation.complete;
+            });
+
+            transition.finished.finally(() => {
+                document.documentElement.classList.remove("view-transitioning");
+            });
         });
     });
 
@@ -151,7 +173,7 @@
 </svelte:head>
 
 <header
-    class="flex z-99 items-center w-screen absolute top-0 left-0 *:transition-colors *:duration-100"
+    class="flex z-99 items-center w-screen h-24 absolute top-0 left-0 *:transition-colors *:duration-100"
 >
     <a
         href={resolve('/')}
@@ -248,6 +270,13 @@
         min-height: 100vh;
         min-height: 100dvh;
         position: relative;
+        view-transition-name: route-shell;
+        contain: layout;
+    }
+
+    header {
+        view-transition-name: site-nav;
+        contain: layout;
     }
 
     :global(.spotlight) {

@@ -69,3 +69,107 @@
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", sans-serif;
 }
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition {
+  background: radial-gradient(
+      at bottom,
+      oklch(0.25 var(--chroma, 0.1) var(--hue, 0deg)) -50vh,
+      oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg)) 100vh
+    )
+    fixed;
+  background-color: oklch(0.05 0.2298 var(--hue, 0deg));
+}
+
+::view-transition-group(route-shell) {
+  animation-duration: 480ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 1;
+}
+
+::view-transition-group(root) {
+  animation: none;
+  z-index: 0;
+}
+
+::view-transition-group(site-nav) {
+  animation: none;
+  z-index: 2;
+}
+
+::view-transition-old(root),
+::view-transition-new(root),
+::view-transition-old(site-nav),
+::view-transition-new(site-nav) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-new(root),
+::view-transition-new(site-nav) {
+  opacity: 1;
+}
+
+::view-transition-old(root),
+::view-transition-old(site-nav) {
+  opacity: 0;
+}
+
+::view-transition-old(route-shell) {
+  animation-name: route-out;
+}
+
+::view-transition-new(route-shell) {
+  animation-name: route-in;
+}
+
+.view-transitioning .fade-main,
+.view-transitioning .fade-center,
+.view-transitioning .fade-left,
+.view-transitioning .fade-right,
+.view-transitioning .fade-ascii {
+  animation: none;
+}
+
+@keyframes route-out {
+  from {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    filter: blur(8px) brightness(1.4);
+    transform: translateY(-12px) scale(0.985);
+  }
+}
+
+@keyframes route-in {
+  from {
+    opacity: 0;
+    filter: blur(10px) brightness(1.6);
+    transform: translateY(18px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0) brightness(1);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none;
+  }
+}
