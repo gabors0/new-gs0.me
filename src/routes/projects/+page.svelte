@@ -2,7 +2,7 @@
   import Project from "$lib/Project.svelte";
   import { spotlight } from "$lib/actions/spotlight.js";
 
-  const minor = [
+  const desktop = [
     {
       title: "amdecrypt-gui",
       license: "MIT",
@@ -10,6 +10,17 @@
       link: "",
       repo: "amdecrypt-gui",
       stack: "wails,go,svelte,tailwind",
+    },
+  ];
+
+  const web = [
+    {
+      title: "configfetch",
+      license: "MIT",
+      description: "a browser-based editor for creating fastfetch configuration files with a live preview",
+      link: "https://ff.gs0.me",
+      repo: "configfetch",
+      stack: "svelte,tailwind,vercel",
     },
     {
       title: "unduck-startpage",
@@ -27,30 +38,44 @@
 </svelte:head>
 
 <div
-  class="flex flex-col gap-5 pt-[100px] pb-5 mx-5 md:mx-auto fade-center max-w-3xl"
+  class="flex flex-col gap-5 pt-25 pb-5 mx-5 md:mx-auto fade-center max-w-3xl"
 >
   <div
     use:spotlight
     class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
-    <h1 class="font-bold p-4 text-3xl text-center text-white/90">major</h1>
+    <h1 class="font-bold p-4 text-3xl text-center text-white/90">web</h1>
     <hr class="w-full text-white/30" />
-    <div class="p-3">
-      <i class="opacity-50 text-center w-full">nothing here yet :(</i>
+    <div
+      class="flex flex-col divide-y divide-white/30 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
+    >
+      {#each web as project (project.title)}
+        <Project {...project} />
+      {/each}
     </div>
   </div>
   <div
     use:spotlight
     class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
-    <h1 class="font-bold p-4 text-3xl text-center text-white/90">minor</h1>
+    <h1 class="font-bold p-4 text-3xl text-center text-white/90">desktop</h1>
     <hr class="w-full text-white/30" />
     <div
       class="flex flex-col divide-y divide-white/30 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
     >
-      {#each minor as project (project.title)}
+      {#each desktop as project (project.title)}
         <Project {...project} />
       {/each}
+    </div>
+  </div>
+  <div
+    use:spotlight
+    class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
+  >
+    <h1 class="font-bold p-4 text-3xl text-center text-white/90">other</h1>
+    <hr class="w-full text-white/30" />
+    <div class="p-3">
+      <i class="opacity-50 text-center w-full">nothing here yet</i>
     </div>
   </div>
 </div>
