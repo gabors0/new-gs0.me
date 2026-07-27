@@ -1,13 +1,9 @@
-import { KV_REST_API_URL, KV_REST_API_TOKEN, HASH_SALT } from "$env/static/private";import { Redis } from "@upstash/redis";
+import { env } from "$env/dynamic/private";
+import { getRedis } from "$lib/server/redis";
 import { json, type RequestEvent } from "@sveltejs/kit";
 
-const redis = new Redis({
-  url: KV_REST_API_URL || "",
-  token: KV_REST_API_TOKEN || "",
-});
-
 const RATE_LIMIT_SECONDS = 120; // 2 min
-const SALT = HASH_SALT;
+const SALT = env.HASH_SALT;
 
 async function hashString(str: string): Promise<string> {
   const encoder = new TextEncoder();
@@ -22,11 +18,17 @@ function getVisitorId(ip: string, userAgent: string): Promise<string> {
 }
 
 export async function GET() {
+  const redis = getRedis();
+  if (!redis) return json({ views: 0 });
+
   const views = await redis.get<number>("page_views");
   return json({ views: views ?? 0 });
 }
 
 export async function POST({ getClientAddress, request }: RequestEvent) {
+  const redis = getRedis();
+  if (!redis) return json({ views: 0, counted: false });
+
   const ip = getClientAddress();
   const userAgent = request.headers.get("user-agent") || "";
   const visitorId = await getVisitorId(ip, userAgent);

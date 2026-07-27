@@ -1,13 +1,7 @@
-import { KV_REST_API_URL, KV_REST_API_TOKEN } from "$env/static/private";
-import { Redis } from "@upstash/redis";
-
-const redis = new Redis({
-  url: KV_REST_API_URL || "",
-  token: KV_REST_API_TOKEN || "",
-});
+import { getRedis } from "$lib/server/redis";
 
 export async function load() {
-  const views = await redis.get<number>("page_views");
+  const views = await getRedis()?.get<number>("page_views");
 
   return {
     views: views ?? 0,
