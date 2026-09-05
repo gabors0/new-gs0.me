@@ -1,15 +1,21 @@
 <script lang="ts">
     import "../app.css";
-    import { browser } from "$app/environment";
     import { page } from "$app/state";
     import { goto, onNavigate } from "$app/navigation";
-    import { onMount } from "svelte";
+    import { onMount, untrack } from "svelte";
     import { dev } from "$app/environment";
     import { setContext } from 'svelte';
     import { injectAnalytics } from "@vercel/analytics/sveltekit";
     import { resolve } from '$app/paths';
 
-    let { children } = $props();
+    import { themeColor } from "$lib/theme";
+
+    let { children, data } = $props();
+    // Keep the layout's theme across client-side navigation; SSR supplies it once.
+    const initialTheme = untrack(() => data.theme);
+    let hue = $state(initialTheme.hue);
+    let chroma = $state(initialTheme.chroma);
+    let browserColor = $derived(themeColor(hue, chroma));
 
     onMount(() => {
         console.log("%csup", `color: #EE00FF; font-size: x-large`);
@@ -40,15 +46,6 @@
         });
     });
 
-    // generate a hue during SSR so the initial HTML/CSS contains the color
-    let ssrHue: number | null = $state(null);
-    let ssrChroma: number | null = $state(null);
-
-    if (!browser) {
-        ssrHue = Math.floor(Math.random() * 361);
-        ssrChroma = parseFloat((Math.random() * 0.1).toFixed(3));
-    }
-
     setContext('getHue', () => hue);
     setContext('getChroma', () => chroma);
 
@@ -68,10 +65,13 @@
 
         root.style.setProperty("--hue", `${newHue}deg`);
     }
-    setContext('setHueSmoothly', setHueSmoothly);
-
-    let hue = $state(0);
-    let chroma = $state(0.1);
+    function rerollColor() {
+        hue = Math.floor(Math.random() * 360);
+        chroma = Number((Math.random() * 0.1).toFixed(3));
+        setHueSmoothly(hue);
+        document.documentElement.style.setProperty("--chroma", chroma.toString());
+    }
+    setContext('rerollColor', rerollColor);
 
     // keybinds
     onMount(() => {
@@ -102,13 +102,7 @@
                     goto(resolve("/about"));
                     break;
                 case "r":
-                    hue = Math.floor(Math.random() * 361);
-                    chroma = parseFloat((Math.random() * 0.1).toFixed(3));
-                    setHueSmoothly(hue);
-                    document.documentElement.style.setProperty(
-                        "--chroma",
-                        chroma.toString(),
-                    );
+                    rerollColor();
                     break;
 
             }
@@ -143,7 +137,7 @@
     <meta name="description" content="about" />
     <meta name="author" content="gabors0" />
     <meta name="keywords" content="gabors0, about, website" />
-    <meta name="theme-color" content="oklch(0.1 0 0deg)" />
+    <meta name="theme-color" content={browserColor} />
 
     <!-- open graph -->
     <meta property="og:type" content="website" />
@@ -160,24 +154,17 @@
     <meta property="twitter:description" content="about" />
     <meta property="twitter:image" content="https://gs0.me/card.webp" />
 
-    {#if ssrHue !== null || ssrChroma !== null}
-        <style>
-            :root {
-                --hue: {ssrHue}deg;
-                --chroma: {ssrChroma};
-            }
-        </style>
-    {/if}
+    <!-- These values are server-generated numbers, shared with hydration. -->
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    {@html `<script>(function(){try{var r=document.documentElement;r.style.setProperty('--hue',Math.floor(Math.random()*361)+'deg');r.style.setProperty('--chroma',parseFloat((Math.random()*0.1).toFixed(3)));}catch{/* ignore */} })();</script>`}
+    {@html `<style>:root { --hue: ${initialTheme.hue}deg; --chroma: ${initialTheme.chroma}; }</style>`}
 </svelte:head>
 
 <header
-    class="flex z-99 items-center w-screen h-24 absolute top-0 left-0 *:transition-colors *:duration-100"
+    class="flex z-99 items-center justify-between w-full h-24 absolute top-0 left-0 *:transition-colors *:duration-100"
 >
     <a
         href={resolve('/')}
-        class="group p-5 cursor-pointer hover:text-white absolute top-4 left-5
+        class="group p-5 cursor-pointer hover:text-white
     {page.url.pathname === '/' ? 'text-white' : 'text-white/50'}"
         >/<span
             class="group-hover:text-white! transition-colors duration-100 {page
@@ -188,7 +175,7 @@
     >
     <a
         href={resolve('/projects')}
-        class="group p-5 cursor-pointer hover:text-white absolute top-4 left-1/2 -translate-x-1/2 {page
+        class="group p-5 cursor-pointer hover:text-white {page
             .url.pathname === '/projects'
             ? 'text-white'
             : 'text-white/50'}"
@@ -201,7 +188,7 @@
     >
     <a
         href={resolve('/about')}
-        class="group p-5 cursor-pointer hover:text-white absolute top-4 right-5 {page
+        class="group p-5 cursor-pointer hover:text-white {page
             .url.pathname === '/about'
             ? 'text-white'
             : 'text-white/50'}"
@@ -214,7 +201,7 @@
     >
 </header>
 
-<main class="overflow-hidden">
+<main>
     {@render children()}
 </main>
 
@@ -234,17 +221,26 @@
 
     :global(html) {
         @apply font-ubuntu font-normal;
-        height: 100%;
+        min-height: 100%;
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+        background-color: oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg));
+        transition: --hue 0.5s, --chroma 0.5s;
+    }
+
+    /* A fixed layer avoids iOS background-attachment repaint/size issues. */
+    :global(body)::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
         background: radial-gradient(
                 at bottom,
                 oklch(0.25 var(--chroma, 0.1) var(--hue, 0deg)) -50vh,
                 oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg)) 100vh
-            )
-            fixed;
-        background-color: oklch(0.05 0.2298 var(--hue, 0deg));
-        transition:
-            --hue 0.5s,
-            --chroma 0.5s;
+            );
+        background-color: oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg));
     }
 
     :global(*):focus {
@@ -261,9 +257,9 @@
         padding: 0;
         min-height: 100vh;
 
-        background-attachment: fixed;
-        background-size: 100% 100vh;
-        background-repeat: no-repeat;
+        min-height: 100dvh;
+        isolation: isolate;
+        background-color: oklch(0.1 var(--chroma, 0.1) var(--hue, 0deg));
     }
 
     main {
@@ -271,10 +267,14 @@
         min-height: 100dvh;
         position: relative;
         view-transition-name: route-shell;
-        contain: layout;
+        overflow-x: clip;
     }
 
     header {
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-left: max(0px, env(safe-area-inset-left, 0px));
+        padding-right: max(0px, env(safe-area-inset-right, 0px));
+        height: calc(6rem + env(safe-area-inset-top, 0px));
         view-transition-name: site-nav;
         contain: layout;
     }

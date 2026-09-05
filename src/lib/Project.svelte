@@ -141,8 +141,8 @@
 
 <div class="bg-blend-darken w-full sm:flex-1 sm:min-w-0">
   <div class="flex flex-row items-center justify-between">
-    <div class="flex flex-row items-center">
-      <h1 class="font-bold pl-4 pr-2 pt-4 text-2xl text-white/90">{title}</h1>
+    <div class="flex min-w-0 flex-wrap items-center">
+      <h1 class="font-bold pl-4 pr-2 pt-4 break-words min-w-0 text-2xl text-white/90">{title}</h1>
       <span class="bg-white/10 text-white/70 text-xl rounded-sm px-1.5 mt-4"
         >{license}</span
       >
@@ -176,13 +176,13 @@
       <!-- eslint-enable svelte/no-navigation-without-resolve -->
     </div>
   </div>
-  <p class="px-4 py-2 opacity-70 text-lg">{description}</p>
-  <div class="flex justify-between items-center p-4">
+  <p class="px-4 py-2 wrap-anywhere opacity-70 text-lg">{description}</p>
+  <div class="flex justify-between items-center gap-3 p-4">
     <span class="italic align-middle opacity-70"
       >{#if error}{error}{:else if formattedDate}last modified: {formattedDate}
         ago{:else if repo == ""}{:else}<Spinner type="classic" />{/if}</span
     >
-    <div class="flex flex-row gap-1">
+    <div class="flex flex-row shrink-0 gap-1">
       {#if link !== ""}
         <!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
         <a href={link} target="_blank" title="visit website">

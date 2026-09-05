@@ -68,7 +68,7 @@
 </svelte:head>
 
 <div
-  class="grid grid-cols-1 md:grid-cols-2 grid-rows-[auto_1fr] gap-y-5 md:gap-x-5 pt-25 md:pb-0 mx-5 min-h-screen"
+  class="grid grid-cols-1 md:grid-cols-2 auto-rows-auto md:grid-rows-[auto_1fr] gap-y-5 md:gap-x-5 page-content pt-25 md:pb-0 mx-5 min-h-screen"
 >
   <div
     use:spotlight
@@ -188,11 +188,11 @@
     <SectionTitle title="colors used" />
     <div class="flex md:flex-row flex-col justify-between">
       <div
-        class="flex flex-col lg:flex-row items-center justify-center gap-y-3 lg:gap-y-0 gap-x-3 md:w-full text-4xl text-center p-3"
+        class="flex flex-col lg:flex-row items-center justify-center flex-wrap gap-y-3 gap-x-3 md:w-full text-4xl text-center p-3"
       >
         <span class="bg-white text-black">#ffffff</span>
         <span class="bg-black text-white">#000000</span>
-        <span class="oklch-gradient">oklch(0.2 0.1 1-360)</span>
+        <span class="oklch-gradient max-w-full wrap-anywhere">oklch(0.2 0.1 1-360)</span>
       </div>
     </div>
     <!--//////////////////-->
@@ -281,17 +281,15 @@
   .fade-left {
     transform-origin: center right;
     animation:
-      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
-      fadeSplitFilter 0.5s ease-out both;
-    will-change: opacity, transform, filter;
+      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) backwards,
+      fadeSplitFilter 0.5s ease-out backwards;
   }
 
   .fade-right {
     transform-origin: center left;
     animation:
-      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms both,
-      fadeSplitFilter 0.5s ease-out 80ms both;
-    will-change: opacity, transform, filter;
+      fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 80ms backwards,
+      fadeSplitFilter 0.5s ease-out 80ms backwards;
   }
 
   @keyframes fadeAsciiTransform {
@@ -312,9 +310,8 @@
   .fade-ascii {
     transform-origin: center top;
     animation:
-      fadeAsciiTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 160ms both,
-      fadeSplitFilter 0.5s ease-out 160ms both;
-    will-change: opacity, transform, filter;
+      fadeAsciiTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 160ms backwards,
+      fadeSplitFilter 0.5s ease-out 160ms backwards;
   }
 
   @media (max-width: 768px) {
@@ -322,8 +319,8 @@
     .fade-right {
       transform-origin: center;
       animation:
-        fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) both,
-        fadeSplitFilter 0.5s ease-out both;
+        fadeSplitTransform 1.2s cubic-bezier(0.22, 1, 0.36, 1) backwards,
+        fadeSplitFilter 0.5s ease-out backwards;
     }
   }
 </style>

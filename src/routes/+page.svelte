@@ -27,7 +27,7 @@
   let didHoverRevealEmail = false;
 
   function previewEmail() {
-    if (isEmailVisible) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches || isEmailVisible) return;
 
     isEmailVisible = true;
     didHoverRevealEmail = true;
@@ -51,11 +51,44 @@
   
   //colors menu
   let areStatsVisible = $state(false);
+  let isCardObscured = $state(false);
+  let homeScreen: HTMLDivElement;
+  let colorMenu: HTMLDivElement;
+
+  onMount(() => {
+    // Use actual bounds: Safari's toolbar and text size change the available space.
+    function updateCardVisibility() {
+      const menu = colorMenu.getBoundingClientRect();
+      const cards = Array.from(homeScreen.querySelectorAll<HTMLElement>(".main"))
+        .map((card) => card.getBoundingClientRect())
+        .filter((rect) => rect.width > 0 && rect.height > 0);
+      isCardObscured = cards.some((card, index) =>
+        menu.left < card.right && menu.right > card.left &&
+        menu.top < card.bottom + 16 && menu.bottom > card.top - (index === 0 ? 48 : 0)
+      );
+    }
+
+    const observer = new ResizeObserver(updateCardVisibility);
+    observer.observe(colorMenu);
+    observer.observe(homeScreen);
+    homeScreen.querySelectorAll(".main").forEach((card) => observer.observe(card));
+    window.addEventListener("resize", updateCardVisibility);
+    window.addEventListener("scroll", updateCardVisibility, { passive: true });
+    window.visualViewport?.addEventListener("resize", updateCardVisibility);
+    homeScreen.addEventListener("animationend", updateCardVisibility);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateCardVisibility);
+      window.removeEventListener("scroll", updateCardVisibility);
+      window.visualViewport?.removeEventListener("resize", updateCardVisibility);
+      homeScreen.removeEventListener("animationend", updateCardVisibility);
+    };
+  });
   let getHue = getContext<() => number>("getHue");
   let getChroma = getContext<() => number>("getChroma");
   let hue = $derived(getHue());
   let chroma = $derived(getChroma());
-  let setHueSmoothly = getContext<(hue: number) => void>("setHueSmoothly");
+  let rerollColor = getContext<() => void>("rerollColor");
   let copyToClipboard = getContext<(text: string) => void>("copyToClipboard");
 
   //clock
@@ -114,11 +147,11 @@
   });
 </script>
 
-<div class="flex flex-col justify-center items-center h-screen fade-main">
+<div bind:this={homeScreen} inert={isCardObscured} class="flex flex-col justify-center items-center home-screen fade-main">
   <div
     use:spotlight
-    class="spotlight relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {areStatsVisible
-      ? 'hidden-short'
+    class="spotlight relative flex flex-col w-[90%] bg-black/30 border border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {isCardObscured
+      ? 'obscured'
       : ''}"
   >
     <div class="absolute -top-12 right-3">
@@ -138,7 +171,7 @@
     </div>
     <div class="flex flex-row justify-between items-center mb-0.5">
         <h1
-          class="font-suse-mono font-light text-3xl transition-[letter-spacing] {isEmailVisible
+          class="font-suse-mono font-light text-2xl sm:text-3xl min-w-0 transition-[letter-spacing] {isEmailVisible
             ? ''
             : 'hover:tracking-wider'}"
         >
@@ -259,8 +292,8 @@
   <!-- mobile social links -->
   <div
     use:spotlight
-    class="spotlight relative sm:hidden flex flex-row items-center justify-center gap-x-1 w-[90%] bg-black/30 border border-t-0 border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {areStatsVisible
-      ? 'hidden-short'
+    class="spotlight relative sm:hidden flex flex-row items-center justify-center gap-x-1 w-[90%] bg-black/30 border border-t-0 border-white/30 bg-blend-darken mx-5 p-5 sm:mx-0 sm:w-xl main {isCardObscured
+      ? 'obscured'
       : ''}"
   >
       <a
@@ -331,21 +364,13 @@
 </div>
 
 <!-- colors menu -->
-<div class="fixed bottom-5 left-5 flex justify-end flex-col">
-  <div class="flex flex-row gap-x-2">
+<div bind:this={colorMenu} class="color-menu fixed flex flex-col">
+  <div class="color-controls flex flex-row items-center gap-x-2">
     <button
       class="cursor-pointer text-white/50 hover:text-white hover:*:text-white transition-colors duration-200"
       aria-label="reroll color"
       title="reroll color"
-      onclick={() => {
-        hue = Math.floor(Math.random() * 361);
-        chroma = parseFloat((Math.random() * 0.1).toFixed(3));
-        setHueSmoothly(Number(hue));
-        document.documentElement.style.setProperty(
-          "--chroma",
-          chroma.toString(),
-        );
-      }}
+      onclick={rerollColor}
     >
       <span class="text-white/75 transition-colors duration-200">r</span>eroll
       color
@@ -354,6 +379,8 @@
     <button
       class="cursor-pointer text-white/50 hover:text-white hover:*:text-white transition-colors duration-200"
       title="color info"
+      aria-expanded={areStatsVisible}
+      aria-controls="color-details"
       onclick={() => {
         areStatsVisible = !areStatsVisible;
       }}
@@ -364,7 +391,8 @@
   {#if areStatsVisible}
     <div
       use:spotlight
-      class="spotlight bg-black/30 border border-white/30 sm:w-md bg-blend-darken mt-3 mr-5 sm:mr-0"
+      id="color-details"
+      class="spotlight bg-black/30 border border-white/30 w-full bg-blend-darken mt-3"
       transition:slide={{ duration: 300 }}
     >
       <div class="flex flex-row justify-between items-center">
@@ -377,7 +405,7 @@
       </div>
       <hr class="w-full text-white/30" />
       <div
-        class="grid grid-cols-[auto_1fr_min-content] grid-rows-2 gap-2 p-4 [&_p]:text-lg"
+        class="grid grid-cols-[auto_minmax(0,1fr)_auto] gap-2 p-3 sm:p-4 [&_p]:text-sm sm:[&_p]:text-lg [&_p]:wrap-anywhere"
       >
         <p>from:</p>
         <p class="font-suse-mono">oklch(0.25 {chroma} {hue})</p>
@@ -439,6 +467,34 @@
 </div>
 
 <style>
+  .home-screen {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: calc(9rem + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .home-screen > div {
+    flex-shrink: 0;
+  }
+
+  .color-menu {
+    z-index: 10;
+    bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    left: calc(1.25rem + env(safe-area-inset-left, 0px));
+    width: min(28rem, calc(100% - 2.5rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+    max-height: calc(100vh - 8rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    max-height: calc(100dvh - 8rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .color-menu > div {
+    flex-shrink: 0;
+  }
+
   @keyframes fadeMainTransform {
     0% {
       opacity: 0;
@@ -475,10 +531,8 @@
     opacity: 1;
     transition: opacity 150ms;
   }
-  @media (max-height: 640px) {
-    .main.hidden-short {
-      opacity: 0;
-      pointer-events: none;
-    }
+  .main.obscured {
+    opacity: 0;
+    pointer-events: none;
   }
 </style>

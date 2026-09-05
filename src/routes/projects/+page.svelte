@@ -38,7 +38,7 @@
 </svelte:head>
 
 <div
-  class="flex flex-col gap-5 pt-25 pb-5 mx-5 md:mx-auto fade-center max-w-3xl"
+  class="page-content flex flex-col gap-5 pt-25 pb-5 mx-5 md:mx-auto fade-center max-w-3xl"
 >
   <div
     use:spotlight
