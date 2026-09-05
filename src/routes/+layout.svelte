@@ -272,8 +272,8 @@
 
     header {
         padding-top: env(safe-area-inset-top, 0px);
-        padding-left: max(0px, env(safe-area-inset-left, 0px));
-        padding-right: max(0px, env(safe-area-inset-right, 0px));
+        padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+        padding-right: calc(1rem + env(safe-area-inset-right, 0px));
         height: calc(6rem + env(safe-area-inset-top, 0px));
         view-transition-name: site-nav;
         contain: layout;
