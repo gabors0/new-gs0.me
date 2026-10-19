@@ -15,6 +15,14 @@
 
   const web = [
     {
+      title: "lfm-tools",
+      license: "MIT",
+      description: "a last.fm toolbox in the spirit of open scrobbler. scrobble tracks and whole albums manually, find duplicate scrobbles, export your history, and clear or restore your loved tracks",
+      link: "https://lfmtools.gs0.me",
+      repo: "lfm-tools",
+      stack: "nextjs,react,tailwind,vercel",
+    },
+    {
       title: "configfetch",
       license: "MIT",
       description: "a browser-based editor for creating fastfetch configuration files with a live preview",
