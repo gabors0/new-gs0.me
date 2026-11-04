@@ -2,17 +2,6 @@
   import Project from "$lib/Project.svelte";
   import { spotlight } from "$lib/actions/spotlight.js";
 
-  const desktop = [
-    {
-      title: "amdecrypt-gui",
-      license: "MIT",
-      description: "a cross-platform app made to easily install and use AppleMusicDecrypt made by @WorldObservationLog, currently in development",
-      link: "",
-      repo: "amdecrypt-gui",
-      stack: "wails,go,svelte,tailwind",
-    },
-  ];
-
   const web = [
     {
       title: "lfm-tools",
@@ -68,15 +57,11 @@
   >
     <h1 class="font-bold p-4 text-3xl text-center text-white/90">desktop</h1>
     <hr class="w-full text-white/30" />
-    <div
-      class="flex flex-col divide-y divide-white/30 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
-    >
-      {#each desktop as project (project.title)}
-        <Project {...project} />
-      {/each}
+    <div class="p-3">
+      <i class="opacity-50 text-center w-full">nothing here yet</i>
     </div>
   </div>
-  <div
+  <!-- <div
     use:spotlight
     class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
@@ -85,7 +70,7 @@
     <div class="p-3">
       <i class="opacity-50 text-center w-full">nothing here yet</i>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <style>
