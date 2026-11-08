@@ -6,7 +6,8 @@
     {
       title: "lfm-tools",
       license: "MIT",
-      description: "a last.fm toolbox in the spirit of open scrobbler. scrobble tracks and whole albums manually, find duplicate scrobbles, export your history, and clear or restore your loved tracks",
+      description:
+        "a last.fm toolbox in the spirit of open scrobbler. scrobble tracks and whole albums manually, find duplicate scrobbles, export your history, and clear or restore your loved tracks",
       link: "https://lfmtools.gs0.me",
       repo: "lfm-tools",
       stack: "nextjs,react,tailwind,vercel",
@@ -14,7 +15,8 @@
     {
       title: "configfetch",
       license: "MIT",
-      description: "a browser-based editor for creating fastfetch configuration files with a live preview",
+      description:
+        "a browser-based editor for creating fastfetch configuration files with a live preview",
       link: "https://ff.gs0.me",
       repo: "configfetch",
       stack: "svelte,tailwind,vercel",
@@ -22,10 +24,23 @@
     {
       title: "unduck-startpage",
       license: "MIT",
-      description: "a startpage for theo browne's unduck (duckduckgo's bangs but faster). mostly for browsers that don't allow setting a custom search engine, like the one in the steam overlay",
+      description:
+        "a startpage for theo browne's unduck (duckduckgo's bangs but faster). mostly for browsers that don't allow setting a custom search engine, like the one in the steam overlay",
       link: "https://search.gs0.me",
       repo: "unduck-startpage",
       stack: "svelte,tailwind,vercel",
+    },
+  ];
+
+  const desktop = [
+    {
+      title: "SLOPP",
+      license: "GPL-3.0",
+      description:
+        "a xampp clone remade with rust using gpui for school use",
+      link: "https://slopp.gs0.me",
+      repo: "slopp",
+      stack: "rust",
     },
   ];
 </script>
@@ -57,11 +72,15 @@
   >
     <h1 class="font-bold p-4 text-3xl text-center text-white/90">desktop</h1>
     <hr class="w-full text-white/30" />
-    <div class="p-3">
-      <i class="opacity-50 text-center w-full">nothing here yet</i>
+    <div
+      class="flex flex-col divide-y divide-white/30 sm:[&>*:nth-child(2n+1):last-child]:col-span-2"
+    >
+      {#each desktop as project (project.title)}
+        <Project {...project} />
+      {/each}
     </div>
   </div>
-  <!-- <div
+  <div
     use:spotlight
     class="spotlight bg-black/30 border border-white/30 bg-blend-darken w-full sm:flex-1 sm:min-w-0"
   >
@@ -70,7 +89,7 @@
     <div class="p-3">
       <i class="opacity-50 text-center w-full">nothing here yet</i>
     </div>
-  </div> -->
+  </div>
 </div>
 
 <style>

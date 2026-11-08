@@ -82,7 +82,7 @@
         currently mainly learning frontend since I love UI design!
       </p>
       <br />
-      <p>I'm also into cars, photography, audio stuff and I love tinkering.</p>
+      <p>I'm also into ai, cars, photography, audio stuff and I love tinkering.</p>
       <br />
       <i>I might also be in desperate need of project ideas</i>
     </div>
